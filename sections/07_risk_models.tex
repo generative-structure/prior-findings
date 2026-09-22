@@ -1,0 +1,51 @@
+\section{RISK MODELS TRAINED ON FINDING HISTORIES}\label{sec:scoring}
+
+Audit organizations increasingly build models that score programs for risk and
+validate them the way any predictive model is validated: fit on one period,
+test on another, report an AUC, check calibration. The metrics are not broken.
+They answer a precise question about the label they are given, and the label
+is the recorded finding. The error is to carry the result over and describe
+the model as predicting where problems are. It has teeth because a score that
+steers where auditors look can make itself right: a flagged program gets more
+attention, more attention raises detection, higher detection produces recorded
+findings, and the recorded findings validate the score
+\citep{ensign2018,lum2016,lakkaraju2017,kleinberg2018}. The obvious objection
+is that this is just a story about auditing more, so the construction worth
+making holds average detection fixed.
+
+Figure~\ref{fig:budget} does that. Across the whole horizontal axis the
+average chance of catching an existing condition stays at
+\mBudgetDetection{} and the overall recorded finding rate stays at
+\mBudgetPrevalence{}. The only thing that changes is allocation: detection
+moves away from the programs the score does not flag and toward the programs
+it does. The score is statistically independent of where the conditions
+actually are; it knows nothing. Measured against the recorded finding, its
+AUC climbs from \mBudgetAucFstart{}, a coin flip, to \mBudgetAucFend{}, and
+its Brier score improves. Measured against the underlying condition, its AUC
+is exactly \mBudgetAucC{} at every point and its prediction error gets worse.
+On a validation report this reads as a model that became genuinely
+discriminating, with no change in average detection. The calculation is
+exact, from a single prespecified configuration.
+Appendix~\ref{app:pred} gives the grid, the general result, a fitted rather
+than an oracle score, and the finite-sample distributions at portfolio sizes
+an audit organization actually has. Calibration is no stronger a guarantee: a
+model can be perfectly calibrated for recorded findings while carrying no
+information about the underlying condition at any point of its range, and the
+appendix works a case in which predictions span a factor of \nCalibSpan{}
+across deciles while the underlying problem rate is flat in all ten.
+
+The implication is narrow. Reporting that a risk model achieves a given AUC
+against recorded findings is a true and useful statement and should be made
+in exactly those words. An ordinary train/test split does not detect the
+problem, because both halves were produced by the same audit process under
+the same targeting policy. What cannot be concluded is that the model has
+located where problems are; if the model also influences audit planning, the
+validation evidence is partly a record of the model's own effect on the
+audit.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.85\textwidth]{ex3_fixed_budget.pdf}
+\caption{\capFixedBudget}
+\label{fig:budget}
+\end{figure}

@@ -1,0 +1,155 @@
+\section{Prediction against an endogenous label}\label{app:pred}
+
+This appendix holds the machinery behind Section~\ref{sec:scoring}: the
+general result, the binary and continuous constructions, the calibration
+table, the fixed-detection grid, the finite-sample distributions and the
+robustness checks. In audit terms, every result below says the same thing:
+a score that steers where the audit looks can validate well against the
+findings the audit then records while knowing nothing about where the
+conditions are.
+
+\subsection{Setup}
+
+Let $S$ be a risk score, $C \in \{0,1\}$ the underlying condition and
+$F \in \{0,1\}$ the recorded finding, with no false positives. Let $P(C=1) = p$
+and let detection depend on the score, $d(S) = P(F=1 \mid C=1, S)$. Assume
+throughout that $S \perp C$: the score carries \emph{no} information about
+where conditions are. Then $P(F=1 \mid S) = p\,d(S)$, and any apparent
+performance of $S$ against $F$ is produced entirely by the dependence of
+detection on the score. The assumption is deliberately extreme; it isolates
+the mechanism. A real score with some genuine information inherits the same
+effect on top of whatever genuine performance it has, and the two are
+indistinguishable from the validation output alone.
+
+\subsection{A binary score}
+
+Let $S \sim \mathrm{Bernoulli}(\pi)$ independent of $C$, with detection $d_1$
+when $S=1$ and $d_0$ when $S=0$. Write $\bar d = \pi d_1 + (1-\pi) d_0$ and
+$\mu = P(F=1) = p\,\bar d$.
+
+\begin{proposition}\label{prop:aucbin}
+$\displaystyle \mathrm{AUC}(S, F) = \tfrac12 +
+\frac{\pi\,p\,(1-\pi)\,(d_1 - d_0)}{2\,\mu\,(1-\mu)}$, while
+$\mathrm{AUC}(S, C) = \tfrac12$ exactly.
+\end{proposition}
+
+The second statement is immediate from $S \perp C$. At the prespecified values
+$p = \nBinP{}$, $\pi = \nBinPi{}$, $d_0 = \nBinDzero{}$ and $d_1 = \nBinDone{}$,
+the closed form gives $\mathrm{AUC}(S,F) = \nBinAucExact{}$; a Monte Carlo run
+at $N = 10^6$ returns \nBinAucMC{}.
+
+\paragraph{A labeling trap worth naming.} The score in
+Proposition~\ref{prop:aucbin} is a generic binary risk indicator drawn
+independently, not the lagged finding itself. If the score \emph{is} the
+previous period's recorded finding, $S = F_{t-1}$, in the stationary regime of
+Proposition~\ref{prop:markov}, then
+%
+\[
+  \mathrm{AUC}(F_{t-1}, F_t) \;=\; \tfrac12 + \tfrac12\,p\,(d_1 - d_0)
+  \;\leq\; \frac{1+p}{2},
+\]
+%
+which at $p = \nBinP{}$ is bounded by \nBinStationaryBound{}, far below the
+\nBinAucExact{} available to a generic score. Within the observation-only
+process the lagged finding is a weak predictor of the record, because it is
+constrained by the same prevalence that limits the record. That is a statement
+about this model and not about lagged findings in general: where the
+underlying condition itself persists, the lagged finding carries information
+about that condition too, and the bound does not apply.
+
+\subsection{A continuous score}
+
+Let $S$ be continuous with a logistic detection curve $d(S)$ of steepness
+$\alpha$, again independent of $C$. As $\alpha$ grows, detection becomes a
+sharper function of the score and $\mathrm{AUC}(S,F)$ can be driven toward one
+while $\mathrm{AUC}(S,C)$ remains exactly one-half. At $\alpha = 40$ the exact
+value by quadrature is $\mathrm{AUC}(S,F) = \nContAucExact{}$, with a Monte
+Carlo value of \nContAucMC{}, against a Monte Carlo $\mathrm{AUC}(S,C) =
+\nContAucC{}$.
+
+\subsection{Calibration}
+
+\begin{proposition}\label{prop:calib}
+Let $m(S) = p\,d(S)$. Then $E[F \mid m] = m$: the model is perfectly calibrated
+for the recorded finding. But $E[C \mid m] = p$ for every value of $m$: it
+carries no information about the underlying condition at any point of its
+range.
+\end{proposition}
+
+\begin{proof}
+$E[F \mid S] = P(F=1 \mid S) = p\,d(S) = m(S)$, and $m$ is a function of $S$, so
+$E[F \mid m] = m$. Since $S \perp C$, $E[C \mid S] = p$, hence $E[C \mid m] = p$.
+\end{proof}
+
+Table~\ref{tab:calib} shows this numerically. Across deciles of the score, mean
+predictions run from \nCalibLo{} to \nCalibHi{}, a span of roughly
+\nCalibSpan{}-fold, and the recorded finding rate tracks them closely, while
+the underlying problem rate sits between \nCalibLatentLo{} and
+\nCalibLatentHi{} in every decile. A calibration plot against an endogenously
+observed label is a statement about that label.
+
+\subsection{Fixed average detection}
+
+The constructions above can be dismissed as saying only that more attention
+produces more findings. This one cannot. The quantity held fixed is $\bar d$,
+the average probability of detecting an existing condition across the
+portfolio; it is not a measure of audit hours, staffing or cost. Fix $\bar d$
+and set
+%
+\[
+  d_0 = \bar d - \pi k, \qquad d_1 = \bar d + (1-\pi)\,k .
+\]
+%
+Then average detection $\pi d_1 + (1-\pi) d_0 = \bar d$ is invariant in $k$, and
+so is the recorded prevalence $\mu = p\,\bar d$. The parameter $k$ moves
+detection from unflagged cases to flagged ones without changing the total.
+
+At the prespecified values $p = \nBudgetP{}$, $\pi = \nBudgetPi{}$ and
+$\bar d = \nBudgetDetection{}$, evaluated at \nBudgetPoints{} points on
+$k \in [0, 0.8]$, six quantities behave as the construction requires and were
+checked at every point. Average detection stays at \nBudgetDetection{} and
+recorded prevalence at \nBudgetPrevalence{}. The AUC against the recorded
+finding rises monotonically from \nBudgetAucFstart{} to \nBudgetAucFend{}, with
+the closed form and the direct computation agreeing throughout. The AUC
+against the underlying condition is exactly \nBudgetAucC{} at every point. The
+Brier score against the recorded finding falls monotonically from
+\nBudgetBrierFstart{} to \nBudgetBrierFend{}, and the Brier score against the
+underlying condition rises monotonically from \nBudgetBrierCstart{} to
+\nBudgetBrierCend{}. Table~\ref{tab:budget} gives the grid. The configuration
+was fixed in advance and no parameter search was performed.
+
+\subsection{Robustness of the predictive results}
+
+\paragraph{Sample size.} Figure~\ref{fig:finite} gives the sampling
+distributions at portfolio sizes an audit organization actually has. At
+\nFiniteNsmall{} programs the middle 95 percent of $\mathrm{AUC}(S,F)$ runs
+from \nFiniteAucFlo{} to \nFiniteAucFhi{}, a range a reviewer would read as
+clear evidence of a working model, and $\mathrm{AUC}(S,C)$ brackets one-half
+at every sample size tested, with \nFiniteReps{} replications per
+configuration.
+
+\paragraph{A fitted model rather than an oracle.} The scores above are oracles:
+the exact functional form is known. Fitting a conventional flexible learner
+by cross-validation instead recovers the oracle closely and inherits its
+property: correlation with the oracle between \nFitCorrLo{} and \nFitCorrHi{},
+$\mathrm{AUC}(S,F) = \nFitAucF{}$ against an oracle value of
+\nFitAucFOracle{}, and $\mathrm{AUC}(S,C) = \nFitAucC{}$. Nothing about the
+phenomenon requires the analyst to know the true detection function; an
+ordinary model discovers it from the data.
+
+\paragraph{False positives.} Relaxing the no-false-positive assumption, so that
+a finding can be recorded where no condition exists at rates $a_0$ and $a_1$,
+attenuates the recorded risk ratio but does not overturn the qualitative
+conclusion: with $a_0 = a_1 = \nFPrate{}$, $d_0 = \nFPdzero{}$ and
+$d_1 = \nFPdone{}$, \nFPshare{}~percent of recorded findings are false positives,
+$\mathrm{AUC}(S,F) = \nFPaucF{}$ and $\mathrm{AUC}(S,C) = \nFPaucC{}$.
+
+\input{exhibits/exB1_budget}
+\input{exhibits/exB2_calibration}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.6\textwidth]{exB3_finite.pdf}
+\caption{\capFinite}
+\label{fig:finite}
+\end{figure}

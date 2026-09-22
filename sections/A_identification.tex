@@ -1,0 +1,266 @@
+\section{Identification}\label{app:id}
+
+Each proposition is followed by a one-sentence statement of what it means in
+audit terms.
+
+\subsection{Setup}
+
+Fix a program and a period $t$. Let $C_t \in \{0,1\}$ indicate that the
+underlying condition is present, and $F_t \in \{0,1\}$ that a finding is
+recorded. Assume no false positives, so $F_t = 1$ implies $C_t = 1$. Write
+$f \in \{0,1\}$ for the prior-period record $F_{t-1}$, and define
+%
+\[
+  r_f = P(C_t = 1 \mid F_{t-1} = f), \qquad
+  d_f = P(F_t = 1 \mid C_t = 1,\, F_{t-1} = f),
+\]
+\[
+  q_f = P(F_t = 1 \mid F_{t-1} = f).
+\]
+%
+Call $r_f$ the underlying rate, $d_f$ the detection probability and $q_f$ the
+recorded rate. Write $\Rlat = r_1/r_0$, $\Robs = q_1/q_0$ and $M = d_1/d_0$.
+The observable data determine $q_0$ and $q_1$ and nothing else. In
+Propositions~\ref{prop:two}--\ref{prop:remed} take $q_0 > 0$ and $q_1 > 0$,
+which is the empirically relevant case and is needed for the ratios to be
+defined.
+
+\begin{proposition}[Two-factor identity]\label{prop:two}
+$q_f = r_f\,d_f$ for $f \in \{0,1\}$, and consequently $r_f \geq q_f$ and
+$\Robs = \Rlat \, M$.
+\end{proposition}
+
+\begin{proof}
+$P(F_t=1 \mid F_{t-1}=f) = P(C_t=1 \mid F_{t-1}=f)\,P(F_t=1 \mid C_t=1,F_{t-1}=f)
++ P(C_t=0 \mid F_{t-1}=f)\cdot 0 = r_f d_f$. Since $d_f \leq 1$,
+$r_f = q_f/d_f \geq q_f$. Dividing $q_1 = r_1 d_1$ by $q_0 = r_0 d_0$ gives
+the product form.
+\end{proof}
+
+In audit terms: the recorded finding rate is the problem rate times the catch
+rate, so the problem rate is at least the recorded rate, and the recorded risk
+ratio is the underlying risk ratio times the follow-up detection multiplier.
+
+\begin{proposition}[Unrestricted bounds]\label{prop:bounds}
+$\Rlat \in [\,q_1,\; 1/q_0\,]$, and both endpoints are attained.
+\end{proposition}
+
+\begin{proof}
+By Proposition~\ref{prop:two}, $r_1 \in [q_1, 1]$ and $r_0 \in [q_0, 1]$, and
+these are the only restrictions the data impose: for any such pair, setting
+$d_f = q_f/r_f \in (0,1]$ reproduces $q_0$ and $q_1$ exactly. Hence
+$\Rlat = r_1/r_0$ is minimized at $r_1 = q_1$, $r_0 = 1$, giving
+$q_1$, and maximized at $r_1 = 1$, $r_0 = q_0$, giving $1/q_0$. Both
+configurations are admissible, so both endpoints are attained.
+\end{proof}
+
+On the difference scale the same argument gives
+$r_1 - r_0 \in [\,q_1 - 1,\; 1 - q_0\,]$, also sharp. The interval contains $1$
+(and the difference interval contains zero) whenever $q_1 < 1$ and $q_0 < 1$.
+In audit terms: the record tells us at least how common the problem must be in
+each group, but not how much more common it is in one history group than the
+other unless we also know something about detection.
+
+\begin{proposition}[Monotone detection]\label{prop:mono}
+If $d_1 \geq d_0$, then $\Rlat \in [\,q_1,\; \Robs\,]$.
+Consequently:
+\begin{enumerate}
+\item[(i)] $\Robs < 1 \implies \Rlat < 1$;
+\item[(ii)] if in addition $d_1/d_0 \leq \Mbar$ for a known $\Mbar \geq 1$,
+then $\Rlat \geq \Robs/\Mbar$, so $\Robs > \Mbar \implies \Rlat > 1$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+From Proposition~\ref{prop:two}, $\Robs = \Rlat\,(d_1/d_0)$. If $d_1/d_0 \geq
+1$ then $\Rlat = \Robs/(d_1/d_0) \leq \Robs$; the lower bound is unchanged
+from Proposition~\ref{prop:bounds}. Part~(i) is immediate. For part~(ii),
+$\Rlat = \Robs/(d_1/d_0) \geq \Robs/\Mbar$.
+\end{proof}
+
+In audit terms: if follow-up can only raise the catch rate, the recorded risk
+ratio is a ceiling on the underlying one, and a defended ceiling on how much
+follow-up raises the catch rate gives a floor on the underlying ratio. The
+Remediation column of Table~\ref{tab:worlds} shows why the ceiling is needed:
+the recorded ratio is $4.0$ and the underlying ratio is $0.5$, reconciled by
+$M = \nWorldRdetRatio{}$.
+
+\begin{proposition}[Remediation reversal]\label{prop:remed}
+Suppose $r_1 < r_0$, so the underlying condition is less likely after a
+recorded finding. Then $q_1 > q_0$ if and only if $d_1/d_0 > r_0/r_1$.
+\end{proposition}
+
+\begin{proof}
+$q_1 > q_0 \iff r_1 d_1 > r_0 d_0 \iff d_1/d_0 > r_0/r_1$, the last step
+dividing by $r_1 d_0 > 0$.
+\end{proof}
+
+In audit terms: when the problem has been reduced, recorded findings still go
+up after a prior finding whenever follow-up raises the catch rate by more than
+the problem was reduced; in the Remediation column, $r_0/r_1 = 2$ and $M =
+\nWorldRdetRatio{}$.
+
+\subsection*{Remark: dropping the no-false-positive assumption}
+
+Everything above assumes a recorded finding implies a real condition. If
+findings can be recorded where none exists, the floor $r_f \geq q_f$ of
+Proposition~\ref{prop:two} no longer holds, and with it the lower endpoint of
+every interval above. Identification is then weaker, not stronger, unless
+specificity is separately constrained. The assumption is kept because it is
+the natural approximation for a formally adjudicated audit finding and because
+it isolates the problem; relaxing it does not rescue anything.
+Appendix~\ref{app:pred} reports the corresponding predictive results with
+false positives allowed.
+
+\subsection{Full histories}
+
+Let $h$ denote an observed history of recorded findings up to $t-1$, of any
+length, and write $q(h) = P(F_t = 1 \mid h)$. The observable law of the process
+is exactly the collection $\{q(h)\}$ over histories $h$.
+
+\begin{proposition}[Full-history nonidentification]\label{prop:full}
+Let $r(\cdot)$ be any function with $r(h) \in [q(h), 1]$ for every history $h$.
+There is a detection function $d(\cdot)$ taking values in $[0,1]$ such that the
+model with underlying rates $r(\cdot)$ and detection $d(\cdot)$ reproduces
+$\{q(h)\}$ exactly.
+\end{proposition}
+
+\begin{proof}
+For a history with $r(h) > 0$, set $d(h) = q(h)/r(h)$; this lies in $[0,1]$
+because $0 \leq q(h) \leq r(h)$. For a history with $r(h) = 0$, the constraint
+$r(h) \geq q(h)$ forces $q(h) = 0$, and $d(h)$ may be set to any value in
+$[0,1]$, say $0$. In both cases $r(h)\,d(h) = q(h)$, so by
+Proposition~\ref{prop:two} the model gives $P(F_t=1 \mid h) = q(h)$ for every
+$h$. The observable law is determined by $\{q(h)\}$, which is unchanged.
+\end{proof}
+
+In audit terms: however many years of findings are on file, any story about
+the underlying problem that stays above the recorded rate at every point can
+be made to fit the whole file exactly by adjusting the catch rate, so more
+years alone do not settle which story is true. The class of $r(\cdot)$
+admitted includes functions increasing in the number of prior findings,
+constant functions, and decreasing functions.
+
+\subsection*{Remark: what restricted latent-state models do recover}
+
+Proposition~\ref{prop:full} is not a statement that longitudinal data are
+uninformative about latent dynamics. Latent-structure models, hidden Markov
+models among them, are generically identifiable when enough periods are
+observed \citep{allman2009}. Those results assume that the observed variables
+are conditionally independent given the latent state, together with
+homogeneity of the transition law, a stable observation structure, and no
+additional unmodeled heterogeneity. History-dependent detection violates the
+conditional-independence assumption directly: $F_t$ depends on $F_{t-1}$ even
+after conditioning on $C_t$, because $d$ is a function of $F_{t-1}$. That is
+the precise sense in which the identification problem here is not cured by
+more periods, and the precise sense in which a restricted model can cure it.
+If detection is restricted, fixed as a known function, tied to covariates
+observed outside the record, or measured directly, the model leaves the class
+covered by Proposition~\ref{prop:full}. Leaving that class is necessary for
+identification and not sufficient for it: whether a particular restricted
+model is identified is a question about that model, to be settled for it
+specifically. What cannot work is leaving both factors free. A class that
+admits the always-present condition, $r(h) \equiv 1$ with $d(h) = q(h)$,
+contains a member that reproduces any observed law, and is not identified from
+the record alone.
+
+\subsection{Detection information from outside the record}
+
+The two results below formalize the two designs of
+Section~\ref{sec:operational} that identify $M$ rather than bound it. Both
+are standard; they are stated here in the paper's notation.
+
+\begin{proposition}[Reference observation under a common measurement rule]\label{prop:ref}
+Suppose a reference procedure with sensitivity $s \in (0,1]$ for the target
+condition and no false positives is applied to program-years that, within
+each history group $f$, represent that group, by probability sampling or
+through known weights, and that the procedure does not alter the condition.
+Let $s$ be common to both history groups and let $q^{\mathrm{ref}}_f$ be the
+(weighted) reference finding rate after history $f$. Then $q^{\mathrm{ref}}_1
+/ q^{\mathrm{ref}}_0 = \Rlat$, and $M = \Robs / \Rlat$.
+\end{proposition}
+
+\begin{proof}
+Representativeness within each history group means the condition rate in the
+reference observations after history $f$ is $r_f$, so $q^{\mathrm{ref}}_f =
+r_f\, s$ by the argument of Proposition~\ref{prop:two}. The ratio is $r_1 s /
+r_0 s = \Rlat$ because $s$ is common. Then $M = \Robs/\Rlat$ by
+Proposition~\ref{prop:two}.
+\end{proof}
+
+In audit terms: a reference sample that represents each history group, worked
+under the same rule in both, reveals how much more common the problem is
+after a prior finding even though the reference procedure misses some of it,
+because what it misses cancels in the ratio; dividing the targeted record's
+ratio by that number gives the follow-up detection multiplier. The sample may
+be stratified on history; what it may not do is have a procedure whose
+sensitivity differs between the groups. If $s_1 \ne s_0$, the reference ratio
+equals $\Rlat \cdot (s_1/s_0)$ and the cancellation fails.
+
+\begin{proposition}[Two conditionally independent procedures]\label{prop:twoproc}
+Within one history group, apply two procedures A and B to the same
+program-years, with detection probabilities $a$ and $b$ given $C = 1$ that
+are constant across the program-years pooled, no false positives, and
+$A \perp B \mid C$. Let $P_A$, $P_B$ and $P_{AB}$ be the
+probabilities that A finds a condition, that B finds one, and that both do.
+Then $a = P_{AB}/P_B$, $b = P_{AB}/P_A$ and $r = P_A P_B / P_{AB}$.
+\end{proposition}
+
+\begin{proof}
+$P_A = r a$, $P_B = r b$ and, by conditional independence, $P_{AB} = r a b$.
+Then $P_{AB}/P_B = a$, $P_{AB}/P_A = b$, and $P_A P_B / P_{AB} = r$.
+\end{proof}
+
+In audit terms: among the problems the second procedure finds, the share the
+first also found is the first procedure's catch rate, and once both catch
+rates are known the number of problems both missed follows; this is the
+occupancy-and-detection logic of \citet{mackenzie2002}, and it fails when the
+two procedures miss the same cases for the same reason, because then $P_{AB}$
+exceeds $r a b$ and both catch rates are overstated, or when sensitivity
+varies across the pooled program-years so that no single $a$ or $b$ exists. Applied in each history
+group it yields $d_0$, $d_1$ and $M$ for whichever procedure the targeted
+audit uses.
+
+\subsection{Serial dependence generated by observation alone}
+
+\begin{proposition}[Observation-only dynamics]\label{prop:markov}
+Suppose $C_t$ is independent across $t$ with $P(C_t=1) = p$, and detection
+depends on the record through $d_{F_{t-1}}$ alone. Then $\{F_t\}$ is a two-state
+Markov chain with $q_0 = p\,d_0$ and $q_1 = p\,d_1$; its autocorrelation is
+$\rho_k = \lambda^k$ with $\lambda = q_1 - q_0 = p\,(d_1 - d_0)$; and
+$\rho_1 \leq p$.
+\end{proposition}
+
+\begin{proof}
+$P(F_t=1 \mid F_{t-1}=f) = p\,d_f$ by Proposition~\ref{prop:two} and the
+independence of $C_t$ from the past. A two-state chain with transition
+probabilities $q_0$ and $q_1$ has lag-one autocorrelation $q_1 - q_0$ and
+$\rho_k = (q_1-q_0)^k$. Finally $\lambda = p(d_1-d_0) \leq p$ since
+$d_1 - d_0 \leq 1$.
+\end{proof}
+
+In audit terms: even when the problem comes and goes at random with no
+memory at all, a follow-up rule makes the finding record look like it has
+memory, and the recorded risk ratio ($M$ here, since $\Rlat = 1$) says
+nothing about how strong that apparent memory is. In the exact case with
+$p = \nObsOnlyP{}$, $d_0 = \nObsOnlyDzero{}$ and $d_1 = \nObsOnlyDone{}$, the
+recorded risk ratio is \nObsOnlyRR{} while the lag-one autocorrelation of the
+record is \nObsOnlyRho{}. Neither the magnitude of the recorded elevation nor
+the presence of serial dependence in the record discriminates between a
+persisting condition and a persisting audit response.
+
+\subsection*{Remark: stable heterogeneity is a fourth channel}
+
+Persistence, observation feedback and remediation are not the only ways a
+finding record can look autocorrelated. Entities may simply differ: some
+auditees are durably more prone to deficiencies than others, and that alone
+produces association between one year's record and the next. Adding such
+heterogeneity to the multitype setting of Table~\ref{tab:multitype} raises
+findings in requirement areas that had never had one, so it is a candidate
+explanation for the pattern that generalized scrutiny also produces. At the
+prespecified parameters it does not reproduce that pattern in magnitude: the
+raw new-area risk ratio is \nNullCategoryRR{} with neither channel (below one,
+because of the opportunity-set artifact of Section~\ref{sec:fac}),
+\nFrailtyRR{} with heterogeneity alone, and \nScrutinyRR{} with generalized
+scrutiny. This is a negative result at one set of parameters, not a
+demonstration that the two channels are distinguishable in general.

@@ -1,0 +1,173 @@
+\section{FAC EVIDENCE: RECURRENCE, NEW FINDINGS, AND MIXED CASES}\label{sec:fac}
+
+Prior work has established that Single Audit findings recur and that a
+reported finding depends jointly on the condition existing and on the auditor
+detecting it
+\citep{keating2005,petrovits2011,waymire2018,gao2002,gao2024,waddell2023}.
+What is added is the decomposition of what follows a prior finding into
+recurrence, newly recorded findings and mixed cases.
+
+\subsection*{Data and sample}
+
+The data are the public Federal Audit Clearinghouse bulk files; the unit of
+analysis is the auditee--program--year, and the window is fiscal years 2016
+through 2023, inside a single audit-threshold regime \citep{omb2024}. Of
+\nPanelRows{} program-years, \nResolvedRows{} have a resolved prior-year
+observation of the same program, and Sample~A restricts further to the
+\nSampleA{} in which the program was audited as a major program in both
+years: \nNPrior{} with a prior-year finding and \nNNoPrior{} without.
+Intervals are cluster bootstrap over \nNAuditees{} auditees.
+Appendix~\ref{app:emp} gives the construction and the sample flow.
+
+One construction decision follows from the paper's own argument. In
+\nSthreeN{} program-years, \nSthreePct{} percent of the panel, the auditee
+filed in the prior year but this program does not appear in that filing. They
+are excluded rather than coded as ``no prior finding'', because the absence of
+a record is not a clean result: they go on to record a finding
+\nSthreePctFinding{} percent of the time, against \nStwoPctFinding{} percent
+after a resolved clean prior year. ``Repeat'' is the auditor's own coding; a
+validated historical link is the secondary definition
+(Appendix~\ref{app:emp}).
+
+\subsection*{What follows a prior finding}
+
+Even among programs audited as major in both consecutive years, prior recorded
+findings predict two distinct parts of the future finding record: explicit
+recurrence, and additional newly recorded findings. Table~\ref{tab:fourstate}
+is the main result. For context, a program-year following a clean prior year
+records a finding \mPAnyNoPrior{} of the time and one following a prior-year
+finding records one \mPAnyPrior{} of the time, a difference of \mDAny{}
+$[\mDAnyLo{},\,\mDAnyHi{}]$ and a ratio of \nRRAny{}. The content is in
+how that difference is made up.
+
+A program-year lands in exactly one of four states: no finding ($0$); a repeat
+finding and nothing else ($R$); a new finding and nothing else ($N$); or both
+a repeat and a new finding ($B$). Write $\Delta$ for the difference in the
+probability of a state between program-years with and without a prior
+finding. Because the four states do not overlap and cover every possibility,
+the differences add:
+%
+\begin{equation}\label{eq:four}
+  \Delta_{\text{any finding}}
+  \;=\;
+  \Delta_{R}
+  \;+\;
+  \Delta_{N}
+  \;+\;
+  \Delta_{B} .
+\end{equation}
+%
+The categories can be added without deciding where mixed cases belong,
+because each mixed case is counted once, in $B$. In Sample~A, $\Delta_R =
++\nDRonly{}$, $\Delta_N = +\nDNonly{}$ and $\Delta_B = +\nDBoth{}$, adding to
+$+\nDAny{}$. Every interval in the table excludes zero.
+
+Most of the gap is repeat-involving, as an auditor would expect. The row that
+is easy to read past is the one about new findings. Programs whose \emph{only}
+outcome was a new finding account for $+\nDNonly{}$, a ratio of \nRRNonly{},
+which looks like almost nothing. But ``new only'' does not answer the
+question a reader is asking, which is whether the program recorded \emph{any}
+newly recorded problem. That quantity is
+%
+\[
+  \text{any new} \;=\; N + B ,
+\]
+%
+because a period that recorded both a repeat and something new did record
+something new. On that margin the difference is $+\nDAnyNew{}$
+$[\nDAnyNewLo{},\,\nDAnyNewHi{}]$, from \mPAnyNewNoPrior{} to
+\mPAnyNewPrior{}, a ratio of \nRRAnyNew{}. The two ratios, \nRRNonly{} and
+\nRRAnyNew{}, differ by a factor of \nRRfactor{} and come from the same table.
+The difference between them is definitional, not evidence about follow-up:
+``new only'' excludes every period that also recorded a repeat, and ``any
+new'' includes them. Periods land in $B$ for more than one reason, and these
+data do not separate them: thorough follow-up of a repeat can put a program
+there that would otherwise have shown only a new finding, and so can a program
+simply having several distinct deficiencies.
+
+The cleanest version counts findings rather than flagging programs. Every
+individual finding is classified once, as a repeat or as new, so the
+difference in the expected number of findings splits with no allocation rule
+at all:
+%
+\begin{equation}\label{eq:count}
+  \underbrace{+\nEtotal{}}_{\text{total}}
+  \;=\;
+  \underbrace{+\nErepeat{}}_{\text{repeat}}
+  \;+\;
+  \underbrace{+\nEnew{}}_{\text{new}} .
+\end{equation}
+%
+A program-year following a prior-year finding records about one more finding
+than one following a clean year, of which roughly seven tenths of a finding
+is a repeat and three tenths is new.
+
+The record does not identify how much of these associations reflects true
+persistence of the underlying condition, stable differences between auditees,
+condition-specific follow-up, broader scrutiny of programs with a history,
+remediation combined with heavier detection, or mixtures of these. Each is
+consistent with Table~\ref{tab:fourstate}. The FAC results illustrate the
+identification problem; they do not identify its mechanism, and nothing here
+should be cited as showing that observation feedback is the dominant
+explanation.
+
+\subsection*{A recurrence share is a convention, not a measurement}
+
+The obvious way to compress Table~\ref{tab:fourstate} into one number is to
+ask what share of the prior-finding association is recurrence. That statistic
+is not uniquely defined when a program-period can contain both repeat and new
+findings, because every mixed period, \nMixedShare{} percent of all
+prior-finding outcomes, has to be assigned to one side. Assign none of them to
+recurrence and the share is \nZetaLo{} percent. Assign all of them and it is
+\nZetaHi{} percent. The summary moves \nZetaSwing{} percentage points, and
+nothing in the underlying observations changes (Figure~\ref{fig:zeta}). The
+general lesson: when outcome classes overlap, report mutually exclusive states
+or additive counts before reporting an attributable share, and if a share is
+reported anyway, state the convention and show the figure under the opposite
+one. The convention-free statement is equation~\eqref{eq:four}:
+$\nDAny{} = \nDRonly{} + \nDNonly{} + \nDBoth{}$.
+
+\subsection*{A comparison the data do not support}
+
+A natural next question is whether prior findings predict problems in
+requirement areas that never had one. The Clearinghouse records the
+requirement category attached to every reported finding. It does not record
+the universe of requirements that applied to, and were tested in, each
+program-year; that universe is defined by the Compliance Supplement and is
+external to these data. A ``first finding in a previously clean area'' rate
+therefore has no defensible denominator, and without one the comparison goes
+wrong because the two history groups do not have the same opportunity to
+produce the outcome. Take two requirement areas, each with a 0.20 chance of a
+finding this year, independent of anything before. A program with neither
+area previously flagged has a $1 - 0.80^2 = 0.36$ chance of a finding in an
+area new to it; a program with one area already flagged has only the other
+available, so its chance is $0.20$. Nothing underneath differs. In a
+constructed twelve-area case in which nothing depends on history, the naive
+new-area risk ratio is \mNullCategoryRR{}: prior-finding programs look about
+thirty percent \emph{less} likely to have a new kind of problem, from unequal
+opportunity alone. No denominator was invented, and the comparison is not
+made.
+
+\subsection*{Robustness}
+
+Table~\ref{tab:specs} in Appendix~\ref{app:emp} reports every specification.
+Restricting to transitions with stable Clearinghouse provenance moves the
+any-finding gap from \nDAny{} to \nProvDeltaAny{} and leaves any-new at
+\nProvDeltaAnyNew{}. Substituting the validated historical link for the
+auditor's repeat flag moves the repeat-only gap to \nVlinkDeltaRonly{} and
+the both-kinds gap to \nVlinkDeltaBoth{}, leaves any-new unchanged, and opens
+a fifth outcome state worth \nVlinkFifth{} of the gap, given its own column
+there. A prespecified three-year history rule, under which ``no prior
+finding'' means three observed clean years, leaves \nHtwoSampleA{}
+program-years and attenuates the gaps to \nHtwoDeltaAny{} for any finding and
+\nHtwoDeltaAnyNew{} for any new. Across all five specifications the any-new
+margin moves least.
+
+\input{exhibits/ex6_four_state}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.78\textwidth]{ex7_zeta.pdf}
+\caption{\capZeta}
+\label{fig:zeta}
+\end{figure}

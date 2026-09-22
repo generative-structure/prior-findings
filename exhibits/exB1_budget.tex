@@ -1,0 +1,26 @@
+\begin{table}[htbp]
+\centering
+\caption{A fixed detection-capacity budget, every fourth grid point of 21.
+What is held fixed is $\bar d$, the average probability of detecting an
+existing deficiency; it is not a measure of audit hours or cost.
+Detection is set by $d_0 = \bar d - \pi k$ and $d_1 = \bar d + (1-\pi)k$, with
+$p = 0.20$, $\pi = 0.25$ and
+$\bar d = 0.40$, all prespecified. Average detection and
+recorded prevalence are invariant in $k$ by construction; the table shows they are.
+Exact calculation.}
+\label{tab:budget}
+\small
+\begin{tabular}{ccccccccc}
+\toprule
+$k$ & $d_0$ & $d_1$ & \shortstack{average\\detection} & \shortstack{recorded\\rate}
+& AUC vs $F$ & AUC vs $C$ & Brier vs $F$ & Brier vs $C$ \\
+\midrule
+0.00 & 0.400 & 0.400 & 0.400 & 0.080 & 0.5000 & 0.5000 & 0.0736 & 0.1744 \\
+0.16 & 0.360 & 0.520 & 0.400 & 0.080 & 0.5408 & 0.5000 & 0.0734 & 0.1746 \\
+0.32 & 0.320 & 0.640 & 0.400 & 0.080 & 0.5815 & 0.5000 & 0.0728 & 0.1752 \\
+0.48 & 0.280 & 0.760 & 0.400 & 0.080 & 0.6223 & 0.5000 & 0.0719 & 0.1761 \\
+0.64 & 0.240 & 0.880 & 0.400 & 0.080 & 0.6630 & 0.5000 & 0.0705 & 0.1775 \\
+0.80 & 0.200 & 1.000 & 0.400 & 0.080 & 0.7038 & 0.5000 & 0.0688 & 0.1792 \\
+\bottomrule
+\end{tabular}
+\end{table}

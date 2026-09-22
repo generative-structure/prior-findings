@@ -1,0 +1,45 @@
+\begin{table}[tbp]
+\centering
+\caption{\textbf{What follows a prior-year finding.} Sample A: 206,926 program-years
+in which the same program was audited as a major program in both years, 39,067 with
+a finding in the prior year and 167,859 without. The four outcomes in the first panel
+are mutually exclusive and, under the auditor's repeat flag used here, exhaust
+the possibilities, so their risk differences add to the difference in ``any
+finding'' exactly. Intervals are 95 percent
+cluster bootstrap, 1,000 replications resampling 45,952 auditees with their full
+histories, seed 20260918. Every interval excludes zero. The row that is easy to miss
+is ``any new finding'': counting only the periods whose \emph{sole} outcome was
+new understates it by roughly a factor of 2.23 on the ratio scale, because ``new
+only'' excludes every period that also recorded a repeat. A period can land in
+``both'' because repeat follow-up is thorough, or because the program has
+several distinct deficiencies; these data do not separate the two. The
+ratio column is left blank for the three repeat-involving rows: with no prior
+finding a recorded repeat is close to impossible, so the baseline is
+structurally near zero and the ratio is arbitrarily large rather than
+informative. The risk differences are the usable quantities there.}
+\label{tab:fourstate}
+\footnotesize
+\setlength{\tabcolsep}{4.5pt}
+\begin{tabular}{lccccr}
+\toprule
+& \multicolumn{2}{c}{Chance this year} & & & \\
+\cmidrule(lr){2-3}
+Outcome for the program-year & \shortstack{no prior\\finding} & \shortstack{prior\\finding}
+& Difference & 95\% interval & Ratio \\
+\midrule
+No finding at all & 0.9234 & 0.4217 & $-0.5017$ & $[-0.5104,\, -0.4927]$ & 0.46 \\
+A repeat finding only & 0.0015 & 0.3088 & $+0.3073$ & $[0.3008,\, 0.3140]$ & --- \\
+A new finding only & 0.0744 & 0.1200 & $+0.0456$ & $[0.0416,\, 0.0498]$ & 1.61 \\
+Both a repeat and a new finding & 0.0007 & 0.1495 & $+0.1488$ & $[0.1416,\, 0.1561]$ & --- \\
+\midrule
+Any finding & 0.0766 & 0.5783 & $+0.5017$ & $[0.4927,\, 0.5104]$ & 7.55 \\
+Any repeat finding & 0.0022 & 0.4583 & $+0.4561$ & $[0.4458,\, 0.4656]$ & --- \\
+\textbf{Any new finding} (new only $+$ both) & 0.0751 & 0.2696 & $+0.1945$ & $[0.1870,\, 0.2021]$ & 3.59 \\
+\midrule
+\multicolumn{6}{l}{\emph{Findings counted rather than programs flagged --- this needs no allocation rule:}} \\
+Findings recorded, total & 0.1029 & 1.1712 & $+1.0683$ & $[1.0209,\, 1.1182]$ & \\
+\quad of which repeat & 0.0027 & 0.7468 & $+0.7441$ & $[0.7084,\, 0.7807]$ & \\
+\quad of which new & 0.1002 & 0.4245 & $+0.3243$ & $[0.3076,\, 0.3422]$ & \\
+\bottomrule
+\end{tabular}
+\end{table}

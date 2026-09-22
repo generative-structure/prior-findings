@@ -1,0 +1,95 @@
+% ---------------------------------------------------------------------------
+% Follow-Up Is Not Discovery: What a Record of Prior Audit Findings Can and
+% Cannot Tell You.  Anonymized manuscript source.
+%
+% Build: make  (pdflatex + bibtex).  Every number in the prose is a macro
+% defined in exhibits/numbers.tex, generated from verified outputs; nothing
+% is typed by hand.  See README.md.
+% ---------------------------------------------------------------------------
+\documentclass[12pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[american]{babel}
+\usepackage[margin=1in]{geometry}
+\usepackage{mathptmx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{setspace}
+\usepackage{url}
+% Journal convention: text, references, then figures and tables.
+\usepackage[nolists,nomarkers,figuresfirst]{endfloat}
+\renewcommand{\efloatseparator}{\mbox{}}
+
+\bibliographystyle{plainnat}
+\setcitestyle{authoryear,round}
+
+\setlength{\emergencystretch}{1em}
+\graphicspath{{exhibits/}}
+\renewcommand{\thesection}{\arabic{section}}
+
+\theoremstyle{definition}
+\newtheorem{proposition}{Proposition}[section]
+
+\input{exhibits/numbers}
+\input{exhibits/ex3_caption}
+\input{exhibits/ex7_caption}
+\input{exhibits/exB3_caption}
+
+\newcommand{\Robs}{R_{\mathrm{obs}}}
+\newcommand{\Rlat}{R_{\mathrm{lat}}}
+\newcommand{\Mbar}{\overline{M}}
+
+\title{\textbf{Follow-Up Is Not Discovery:\\
+What a Record of Prior Audit Findings Can and Cannot Tell You}}
+\date{}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{plain}
+
+\begin{abstract}
+\input{sections/00_abstract}
+\end{abstract}
+
+\vspace{1em}
+\noindent\textbf{Keywords:} audit findings; follow-up; detection; risk
+assessment; partial identification; Single Audit; predictive validation.
+
+\vspace{1em}
+\noindent\textbf{Data:} all data used in this study are public Federal Audit
+Clearinghouse bulk files; Appendix~\ref{app:emp} describes the acquisition and
+the reproduction path.
+
+\newpage
+\doublespacing
+
+\input{sections/01_intro}
+\input{sections/02_three_programs}
+\input{sections/03_bounds}
+\input{sections/04_single_audit}
+\input{sections/05_fac}
+\input{sections/06_followup_discovery}
+\input{sections/07_risk_models}
+\input{sections/08_operational}
+\input{sections/09_conclusion}
+
+\singlespacing
+\bibliography{refs}
+
+% flush the main-text figures and tables here, before the appendices
+\processdelayedfloats
+
+\appendix
+\renewcommand{\thesection}{\Alph{section}}
+\doublespacing
+\input{sections/A_identification}
+\input{sections/B_prediction}
+\input{sections/C_empirical}
+
+\end{document}

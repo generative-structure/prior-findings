@@ -1,0 +1,147 @@
+\section{Empirical detail}\label{app:emp}
+
+\subsection{Data acquisition and panel construction}
+
+The Federal Audit Clearinghouse publishes the complete structured results of
+every Single Audit submission as bulk files at
+\url{https://www.fac.gov/data/download/}, without registration,
+authentication or fee. Seven files were retrieved in September 2026 and cover
+fiscal years 2016 onward. No free-text finding narratives, no restricted data
+and no nonpublic records of any kind were used. The regulatory provisions
+quoted are from Title~2 of the Code of Federal Regulations; the 2023 annual
+edition is the one in force over the sample period.
+
+The unit of analysis is the auditee--program--year. A ``program'' is the
+regulatory program unit: a cluster of programs where one exists, otherwise a
+single assistance listing number. That follows 2~CFR 200.518(b)(3), under
+which ``a cluster of programs is treated as one program'' for the Type~A
+determination, so the unit matches the one the rules operate on. The window
+is fiscal years 2016 through 2023, restricted to audits whose fiscal year began
+within the period governed by the \$750,000 audit and Type~A thresholds in
+200.501(a) and 200.518(b)(1) as they stood before the 2024 revision, which
+raised both to \$1,000,000 for fiscal years beginning on or after 1~October
+2024 \citep{omb2024}. The panel ends before that revision takes effect, so a
+single threshold regime governs throughout.
+
+Table~\ref{tab:sample} shows how the panel narrows and why a missing prior
+year is not coded as a clean one. The panel distinguishes a resolved
+prior-year observation with no finding from the absence of any prior-year
+record for that program: of the \nPanelRows{} program-years, \nSone{} have a
+resolved prior-year finding and \nStwo{} a resolved prior-year clean result;
+the remainder are excluded rather than recoded. Sample~A restricts further to
+program-years in which the program was audited as major in both years. It
+holds the major-program-selection channel fixed. It does not hold audit
+intensity or condition-specific observation fixed, and cannot, for the reason
+given in Section~\ref{sec:regime}: the follow-up requirement applies within
+Sample~A.
+
+Two definitions of ``repeat'' are used. The primary one is the auditor's own
+coding. The secondary one is a validated historical link: a finding whose
+cited prior reference number appears as a finding reference recorded for the
+same auditee and program in the immediately preceding year. Of the
+\nLinkFlagged{} findings that cite a prior-finding reference, \nLinkResolved{}
+resolve this way, \nLinkPct{}~percent. Non-resolution has innocent causes: the
+prior finding may sit two or more years back, may be recorded against a
+different program unit, or may carry a renumbered reference. Neither measure
+is a gold standard, so both are reported. Intervals throughout are 95 percent
+cluster bootstrap with \nBootReps{} replications, resampling \nNAuditees{}
+auditees together with their full histories, seed \nBootSeed{}.
+
+\subsection{Every specification}
+
+Table~\ref{tab:specs} collects the risk differences under all five
+specifications reported anywhere in this paper. The first row is the primary
+result of Table~\ref{tab:fourstate}. The second substitutes the validated
+historical link for the auditor's repeat flag. This definition mechanically
+forces both repeat states to zero for program-years with no prior finding, so
+its risk differences are interpretable and its risk ratios are not. It has a
+second consequence, which the table makes explicit. Under the auditor's flag,
+every recorded finding is either marked a repeat or is not, so the four
+outcome states exhaust the possibilities and their risk differences add to the
+difference in ``any finding''. Under the validated link they do not. A
+program-year whose findings were all flagged as repeats, none of which
+resolves to a same-program prior-year reference, has recorded no new finding
+and no \emph{validated} repeat, and therefore falls outside all four states.
+That fifth state occurs in \nVlinkFifthNoPrior{} of program-years with no
+prior finding and \nVlinkFifthPrior{} of those with one, a difference of
+\nVlinkFifth{}, which is exactly the gap between the four state columns and
+``any finding'' in that row. It is given its own column rather than absorbed
+anywhere, and the sum is checked in every row.
+
+The third row drops the requirement that the program be audited as major in
+both years, using all program-years with a resolved prior observation. The
+fourth restricts to transitions whose Clearinghouse provenance is stable across
+the two years, which addresses the possibility that repeat-flag capture differs
+between the two administering systems that operated during the window; that
+restriction excludes \nProvExcluded{} transitions. The fifth uses the
+three-year cumulative history rule, requiring resolved observations at $t-1$,
+$t-2$ and $t-3$. Across all five, the any-new margin is the most stable
+quantity in the table.
+
+\subsection{The allocation of mixed periods}
+
+Table~\ref{tab:zeta} gives the full sensitivity of the ``percent due to
+recurrence'' statistic to the treatment of program-periods that recorded both a
+repeat and a new finding. $\zeta$ is the fraction of mixed periods counted as
+recurrence. The $\zeta = 1$ row gives \nNineZeroNine{}~percent; the $\zeta = 0$
+row gives \nZetaLo{}~percent. The arithmetic is not in doubt: the numerator
+$\nDRonly{} + \zeta \cdot \nDBoth{}$ and the denominator \nDAny{} are read
+directly off Table~\ref{tab:fourstate}. A correctly computed statistic can
+still be uninformative, because the quantity it reports is fixed by the
+allocation rule rather than by anything observed.
+
+\subsection{Compliance-requirement categories}
+
+The Clearinghouse records a requirement category for every reported
+deficiency. It does not record which requirements applied to, or were tested
+in, a given program-period; that universe is defined by the Compliance
+Supplement, which is external to these data. A first-in-area hazard therefore
+has no constructible denominator here, and none was constructed.
+
+What can be said is descriptive and applies only to programs that recorded
+findings in both years. Among those \nOverlapN{} Sample~A program-years,
+\nOverlapShares{}~percent share at least one requirement category across the
+two years; the mean Jaccard overlap between the two category sets is
+\nOverlapJaccard{}; on average \nOverlapEntering{} categories enter and
+\nOverlapExiting{} exit between the two years. These are descriptions of a
+conditioned subset, not comparisons across history groups, and they carry no
+implication about the rate at which problems appear in new requirement areas.
+
+\subsection{Horizons beyond one year}
+
+Results at $t+2$ and $t+3$ are not reported in the main text, and the reason
+is structural rather than statistical. Following a program past $t+1$ requires
+it to be audited as a major program again, and that is exactly the quantity
+the regulation makes depend on the finding record: a prior finding can block
+low-risk Type~A status and so make recoverage more likely. The programs that
+can be followed are therefore not a random subset of the programs one would
+want to follow, and the selection runs in the direction that would flatter a
+persistence interpretation.
+
+The attrition is severe. Of \nHorizonNone{} Sample~A finding-years with
+resolved follow-up at $t+1$, \nHorizonNtwo{} can be followed to $t+2$ and
+\nHorizonNthree{} to $t+3$, losses of \nHorizonLossTwo{} and
+\nHorizonLossThree{}~percent. Across those shrinking and increasingly selected
+samples the explicit-repeat rate falls from \nHorizonRepeatOne{} at $t+1$ to
+\nHorizonRepeatThree{} at $t+3$. That decline is what both a decay story and a
+selection story predict, and the design cannot separate them, which is why the
+numbers are recorded here rather than interpreted.
+
+\subsection{Data and code availability}
+
+Reproduction requires the seven bulk files, a build of the
+auditee--program--year panel following the definitions above, and estimation
+of the outcome shares with cluster-bootstrap intervals as described. The panel
+construction, the four-state decomposition, the cluster bootstrap and the
+simulations reported in Sections~\ref{sec:design} and \ref{sec:scoring} are
+implemented in Python and DuckDB with a fixed master seed. The quantities
+reported from simulation are either exact calculations or Monte Carlo results
+from a single prespecified configuration; no parameter search was performed,
+and each table states which of the two it is. The full analysis code, the
+intermediate panel and cryptographic digests of every input and output will be
+deposited with the journal on conditional acceptance and retained for at least
+seven years.
+
+\input{exhibits/ex5_sample}
+\input{exhibits/exC1_specs}
+\input{exhibits/exC2_zeta}

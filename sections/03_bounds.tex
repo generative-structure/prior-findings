@@ -1,0 +1,109 @@
+\section[WHAT THE RECORD IDENTIFIES, AND WHAT IT ONLY BOUNDS]{WHAT THE RECORD IDENTIFIES,\\ AND WHAT IT ONLY BOUNDS}\label{sec:bounds}
+
+The finding record does not point-identify the underlying condition, but it
+does impose useful bounds. Three statements hold, needing in turn no
+additional assumption about detection, one assumption about the direction of
+follow-up, and one number about its size.
+
+\subsection*{With no additional assumption about detection: a floor and a wide range}
+
+Because detection cannot exceed 100 percent, the true problem rate in each
+history group must be at least as high as the recorded finding rate: $d_f \le
+1$ in equation~\eqref{eq:qrd} gives $r_f \ge q_f$. If five percent of
+clean-history program-years record a finding, at least five percent had the
+condition. Without known complete detection, a recorded finding rate is a lower bound
+on the underlying condition rate, not generally an estimate of it.
+
+The question a planner asks is about the ratio, and the floor alone leaves it
+wide. $\Rlat$ is largest when the prior-finding group's problem rate is as
+high as possible (one) and the clean group's is as low as the record allows
+($q_0$), and smallest in the reverse case, so
+%
+\begin{equation}\label{eq:unres}
+  \Rlat \;\in\; [\,q_1,\; 1/q_0\,] ,
+\end{equation}
+%
+and both ends can actually occur (Proposition~\ref{prop:bounds}). At the
+values in Table~\ref{tab:worlds}, $q_0 = \nWorldQzero{}$ and $q_1 =
+\nWorldQone{}$, so $\Rlat$ can range from $\nWorldQone{}$ to $20$. The same
+fourfold recorded ratio is consistent with the underlying condition being five
+times less common, equally common, or much more common after a prior finding.
+Without information about detection, the record does not even fix the sign of
+the underlying association.
+
+\subsection*{With one assumption: the observed ratio is a ceiling}
+
+Now assume that follow-up never makes the auditor look \emph{less} hard at a
+program that had a finding than at one that did not: an existing problem is at
+least as likely to be detected after a prior finding as after a clean history,
+%
+\[
+  d_1 \;\ge\; d_0 , \qquad \text{equivalently } M \ge 1 .
+\]
+%
+Call this monotone detection. The direction is consistent with a follow-up
+regime, which directs more attention toward prior findings and never less,
+but monotone detection remains a substantive assumption about how follow-up
+affects the probability of detecting an existing condition, not a fact the
+regulation proves; it fails, for example, when a prior finding shifts
+attention toward one area and away from another, and it may hold for some
+kinds of condition and not others.
+
+Under monotone detection, dividing equation~\eqref{eq:product} by $M \ge 1$
+gives
+%
+\begin{equation}\label{eq:mono}
+  \Rlat \;\le\; \Robs .
+\end{equation}
+%
+If follow-up can only increase detection, the recorded risk ratio cannot be
+smaller than the underlying risk ratio. In Table~\ref{tab:worlds}, the underlying ratio is at most 4 in every
+column, and the columns show it taking the values 4, 1 and 0.5. One
+consequence needs no further information: if the recorded ratio is below one,
+so that programs with a prior finding record \emph{fewer} findings than
+programs without, the underlying association is genuinely negative, and no
+amount of differential follow-up can explain it away.
+
+\subsection*{With one number: a floor on the underlying ratio}
+
+The constructive result comes from putting a ceiling on the follow-up
+detection multiplier. Write $\Mbar$ for the largest value of $M$ the
+organization is prepared to defend: the most that follow-up could plausibly
+raise the chance of detecting an existing problem. If $1 \le M \le \Mbar$,
+dividing equation~\eqref{eq:product} by $M \le \Mbar$ gives
+%
+\begin{equation}\label{eq:mbar}
+  \Rlat \;\ge\; \Robs / \Mbar .
+\end{equation}
+%
+Even after giving follow-up the largest detection advantage the organization
+considers plausible, the underlying condition is still at least $\Robs/\Mbar$
+times as common after a prior finding. A recorded ratio of 4 and a defensible
+belief that follow-up can increase detection by no more than a factor of 2
+implies an underlying risk ratio of at least 2. With equation~\eqref{eq:mono},
+the record then places $\Rlat$ between 2 and 4: the inference survives, cut
+down by the part of the elevation the follow-up can account for. And whenever
+the recorded ratio exceeds $\Mbar$, the underlying association is genuinely
+positive (Proposition~\ref{prop:mono}).
+
+The binding identification constraint on what an auditor can learn from a
+finding record is therefore not sample size or a more elaborate estimator; it
+is what can be said about detection, summarized in $M$. Sample size still
+governs precision. What can be said about detection is a question about audit
+procedures, answerable by the organization that performs them and not from
+the record; Section~\ref{sec:operational} sets out how.
+
+\subsection*{More years of history do not remove the problem}
+
+A longer record does not solve this on its own. Take any recorded history of
+any length and any story about how likely the underlying problem was at each
+point, so long as it stays at or above the recorded rate. Setting detection
+at each point to whatever value reconciles the two reproduces the entire
+recorded history exactly (Proposition~\ref{prop:full}). Adding years adds observations of the product
+$q = rd$, not of either factor. Restricted models of the underlying condition
+can nevertheless be identifiable when substantive restrictions constrain how
+the condition evolves and how detection responds to the record
+\citep{allman2009}; identification then comes from those restrictions, not
+from record length alone. This paper does not estimate such a model. Its
+interest is what can be said before those restrictions are imposed, and what
+audit design can add.

@@ -1,0 +1,10 @@
+*.aux
+*.log
+*.bbl
+*.blg
+*.out
+*.toc
+*.fff
+*.ttt
+__pycache__/
+.DS_Store

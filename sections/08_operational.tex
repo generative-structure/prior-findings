@@ -1,0 +1,211 @@
+\section{MAKING THE BOUND OPERATIONAL: LEARNING ENOUGH ABOUT DETECTION TO USE IT}\label{sec:operational}
+
+The bound in equation~\eqref{eq:mbar} does work only when the organization can
+say something about $M$. Two things need to be clear about $M$ before any
+route to it is described.
+
+The first is what $M$ is not. $M = d_1/d_0$ is the ratio of two
+probabilities: that an existing condition is detected after a prior finding,
+and that it is detected after a clean history. It is not audit effort. Hours,
+sample sizes, coverage percentages and procedure counts are not $M$, and
+doubling any of them does not double $M$; they inform $M$ only through a
+defensible connection to detection.
+
+The second is that $M$ is target-specific. The multiplier is defined for a
+particular detection target: a defined condition, finding class, procedure or
+audit objective. Different compliance requirements, finding types, control
+deficiencies and transaction tests can have different $d_0$, different $d_1$
+and therefore different $M$. An organization should not assume that follow-up
+has the same detection effect for every condition, requirement or procedure.
+In practice the useful object is $M$ for a stated finding class, or a
+defensible bound that applies to a specified family of conditions; the text
+keeps the single symbol $M$ for readability, with that scope understood.
+
+Six ways to learn or bound $M$ follow, each with different information
+requirements and identifying assumptions. Table~\ref{tab:designs} summarizes
+what each supplies and the assumption on which it turns.
+
+\subsection*{Reference observation under a common measurement rule}
+
+The cleanest design is reference observation under a common measurement rule:
+a set of program-years in each history group, examined with the same
+reference procedure, chosen so that the reference observations represent the
+population whose condition rate is being estimated. The reference sample does
+not have to ignore prior history. It may be stratified on prior-finding
+status; what matters is that within each history group it represents that
+group, through probability sampling or known weights. Tax administrations
+maintain random examination programs beside operationally selected ones for
+this reason \citep{slemrod2019}, and safety regulators have randomized
+inspection allocation \citep{levine2012}.
+
+Let $s$ be the sensitivity of the reference procedure for the target
+condition, the probability it detects that condition when present. One extra
+symbol is needed because the reference procedure is a different procedure
+from the targeted audit, with its own detection probability, and $s$ is
+unknown. If $s$ is the same in both history groups, the reference finding
+rates are $q^{\mathrm{ref}}_0 = r_0\, s$ and $q^{\mathrm{ref}}_1 = r_1\, s$,
+so
+%
+\begin{equation}\label{eq:ref}
+  \frac{q^{\mathrm{ref}}_1}{q^{\mathrm{ref}}_0}
+  \;=\;
+  \frac{r_1\, s}{r_0\, s}
+  \;=\;
+  \Rlat .
+\end{equation}
+%
+The reference procedure does not need perfect detection to recover the
+underlying risk ratio. It needs the same sensitivity in both history groups,
+because a common sensitivity cancels, and only then.
+\begin{center}
+\fbox{\parbox{0.9\textwidth}{\emph{A reference procedure does not need
+perfect detection to identify the underlying risk ratio. It needs comparable
+detection in the two history groups, and negligible false positives.}}}
+\end{center}
+With $\Rlat$ in hand, equation~\eqref{eq:product} gives the multiplier
+directly:
+%
+\begin{equation}\label{eq:mfromref}
+  M \;=\; \Robs / \Rlat .
+\end{equation}
+%
+In words: the targeted audit gives the ratio of finding rates between the two
+history groups. The reference work gives the ratio of underlying condition
+rates, under a common measurement rule. Their ratio identifies the
+multiplicative detection component $M$. If the targeted record shows the
+fourfold ratio of Table~\ref{tab:worlds} and the reference sample shows
+findings twice as often after a prior finding as after a clean year, then
+$\Rlat = 2$ and $M = 4/2 = 2$: the observed fourfold ratio factorizes into a
+twofold underlying-condition ratio and a twofold detection multiplier.
+Section~\ref{sec:fac} could not do this because the Clearinghouse contains no
+such sample.
+
+Five assumptions carry the result (Proposition~\ref{prop:ref}). First, within
+each prior-history group the reference sample represents the population whose
+condition rate is being estimated, directly or through known sampling
+weights. Second, the same reference measurement rule is applied in both
+groups. Third, the reference procedure has common sensitivity across the two
+groups for the target condition. Fourth, the reference observation does not
+alter the condition before it is measured. Fifth, the reference procedure has
+negligible false positives for the target condition, or its false-positive
+process is separately modeled; a reference that records findings where no
+condition exists does not cancel in the ratio. The third is the load-bearing
+one,
+and applying the same nominal procedure does not by itself guarantee it.
+Sensitivity can differ between the groups if the conditions in one group are
+more severe or of different types, if records are harder to obtain, if the
+procedure is implemented differently, or if the case mix differs; then the
+reference ratio is $\Rlat$ times the ratio of sensitivities and the
+cancellation fails. Reference-sample size should be planned from the desired
+precision and the expected condition or finding rates in the two history
+groups.
+
+\subsection*{High-sensitivity reference procedures}
+
+A second anchor comes from procedures whose sensitivity for a narrowly defined
+condition is known or credibly near-perfect. Where such a procedure is applied
+to a whole subpopulation, its finding rate estimates that subpopulation's
+condition rate, so $r$ is observed rather than bounded, and the targeted
+procedure's finding rate in the same group then gives its detection
+probability, $d = q/r$; anchors in both history groups yield $d_0$, $d_1$ and
+$M$.
+
+The anchor rests on the procedure's sensitivity, not on its coverage.
+Exhaustive coverage by itself does not make detection perfect. It removes
+sampling or coverage uncertainty, and it anchors the underlying rate only when
+the procedure applied to that population has known or credibly near-perfect
+sensitivity for the target condition. Where auditors speak of ``certainty
+testing'', the certainty refers to inclusion in the tested population, not to
+certainty that every existing condition will be recognized. Testing every
+transaction for an exact duplicate payment may plausibly have very high
+sensitivity for that narrowly defined condition; testing every file for a
+judgment-dependent compliance failure may not, and the anchor is then only as
+good as the sensitivity that can be defended.
+
+\subsection*{Independent reference adjudication}
+
+A representative or appropriately weighted sample of program-years within
+each history group can be re-adjudicated by a reviewer who does not see the
+original finding history and applies a fixed program of work. Blindness
+removes the history's influence on the reviewer; it does not by itself create
+ground truth, and two cases have to be kept apart.
+
+In the first, a sufficiently accurate reference or adjudication procedure is
+available for the target condition. Then the reference review approximates
+latent status, $d_0$ and $d_1$ are estimated directly as the share of
+reference-identified conditions the original audit had recorded in each
+history group, and $M$ is their ratio; this is the audit analogue of
+correcting a diagnostic study for differential verification
+\citep{degroot2011}. In the second, the reference review is itself imperfect.
+Then its own error process has to be addressed, through multiple independent
+procedures, a model of detection that treats the reference as one more
+imperfect measurement, or an external benchmark with known properties.
+Ordinary blind re-performance of the same work does not automatically solve
+the problem, because both reviews may miss the same condition for the same
+reason, and the shared misses are invisible to both.
+
+\subsection*{Two distinct detection procedures}
+
+Two imperfect procedures can reveal how much each is missing. Suppose
+procedure A vouches transaction-level evidence and procedure B obtains an
+independent external confirmation or performs a genuinely different
+control-based test, both applied to the same programs. Under conditional independence of the two procedures' failures and stable
+sensitivity, and with no false positives, the share of the conditions B finds
+that A also finds identifies A's detection probability; the share of the
+conditions A finds that B also finds identifies B's; and the overlap then
+says how many conditions both missed. This is the logic ecologists use to
+estimate how often a species is present at sites where a survey did not see it
+\citep{mackenzie2002}, and it needs no reference sample
+(Proposition~\ref{prop:twoproc}).
+
+Two requirements carry it. The procedures' failures must be unrelated once
+the true condition is fixed, and each procedure's sensitivity must be stable
+across the program-years being pooled. Using two operationally different
+procedures is not enough on its own: if both tend to miss the same difficult
+cases, for example where documentation does not exist, their agreement looks
+reassuring while saying little about what both missed. Vouching paired with
+an external confirmation can satisfy the first requirement; two reviewers
+re-performing the same sample with the same method generally cannot.
+
+\subsection*{Randomized or quasi-random changes in audit attention}
+
+Some changes in how hard an audit looks arrive for reasons unrelated to the
+underlying condition: randomized rotation, random reference selections,
+externally imposed coverage rules, staffing changes plausibly unrelated to the
+control environment, randomized review depth. These reveal how finding rates
+change when observation changes. A change in audit attention is informative
+about detection only if the change does not independently alter, or select
+on, the underlying condition; that is the exclusion restriction, and a
+staffing increase introduced because controls deteriorated fails it. And such
+variation identifies relative detection effects between the regimes it
+creates, or tightens bounds; absolute condition prevalence generally requires
+an additional sensitivity anchor of the kind described above.
+
+\subsection*{Procedure-based bounds}
+
+An organization that can do none of the above may still be able to defend an
+upper bound $\Mbar$ from what it knows about its own procedures: the fraction
+of the population covered, sample sizes, the number and type of compliance
+requirements tested, the use of targeted versus broad procedures, the strata
+tested with a high-sensitivity procedure, historical quality-review results,
+and any external validation study. These quantities are not $M$. They inform
+$M$ only through an explicit model connecting audit procedures to detection
+probability, for instance a statement of what share of existing conditions a
+procedure of a given depth is expected to catch, and the bound is only as
+defensible as that model.
+
+The arithmetic once $\Mbar$ is in hand is simple. If the organization can
+defend $M \le 1.5$ for the finding class in question and observes $\Robs =
+3$, equation~\eqref{eq:mbar} gives $\Rlat \ge 3/1.5 = 2$: even after giving
+follow-up the largest detection advantage the organization considers
+defensible, the underlying condition must still be at least twice as common
+in the prior-finding group, and with monotone detection the underlying ratio
+lies between 2 and 3. What the record could only place between $q_1$ and
+$1/q_0$ has become a range an audit committee can act on.
+
+The remaining route is a structural model whose restrictions on how the
+condition evolves and how detection responds are defended on audit grounds;
+identification then has to be established for that specific model, and this
+paper does not take that route.
+
+\input{exhibits/ex8_designs}
