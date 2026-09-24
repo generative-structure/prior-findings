@@ -1,4 +1,4 @@
-\section{MAKING THE BOUND OPERATIONAL: LEARNING ENOUGH ABOUT DETECTION TO USE IT}\label{sec:operational}
+\section{Making the bound operational: learning enough about detection to use it}\label{sec:operational}
 
 The bound in equation~\eqref{eq:mbar} does work only when the organization can
 say something about $M$. Two things need to be clear about $M$ before any
@@ -25,7 +25,7 @@ Six ways to learn or bound $M$ follow, each with different information
 requirements and identifying assumptions. Table~\ref{tab:designs} summarizes
 what each supplies and the assumption on which it turns.
 
-\subsection*{Reference observation under a common measurement rule}
+\subsection{Reference observation under a common measurement rule}
 
 The cleanest design is reference observation under a common measurement rule:
 a set of program-years in each history group, examined with the same
@@ -60,7 +60,7 @@ because a common sensitivity cancels, and only then.
 \begin{center}
 \fbox{\parbox{0.9\textwidth}{\emph{A reference procedure does not need
 perfect detection to identify the underlying risk ratio. It needs comparable
-detection in the two history groups, and negligible false positives.}}}
+detection in the two history groups, and no false positives.}}}
 \end{center}
 With $\Rlat$ in hand, equation~\eqref{eq:product} gives the multiplier
 directly:
@@ -87,10 +87,11 @@ weights. Second, the same reference measurement rule is applied in both
 groups. Third, the reference procedure has common sensitivity across the two
 groups for the target condition. Fourth, the reference observation does not
 alter the condition before it is measured. Fifth, the reference procedure has
-negligible false positives for the target condition, or its false-positive
-process is separately modeled; a reference that records findings where no
-condition exists does not cancel in the ratio. The third is the load-bearing
-one,
+no false positives for the target condition, or its false-positive process is
+separately modeled. False positives do not cancel in the ratio, even when
+small; treating them as negligible is an approximation whose adequacy depends
+on their size relative to the finding prevalence. The third is the
+load-bearing one,
 and applying the same nominal procedure does not by itself guarantee it.
 Sensitivity can differ between the groups if the conditions in one group are
 more severe or of different types, if records are harder to obtain, if the
@@ -104,13 +105,15 @@ s_1/s_0 \le u$, then
   \Rlat \;\in\; \bigl[\, R_{\mathrm{ref}}/u,\; R_{\mathrm{ref}}/\ell \,\bigr] ,
 \end{equation}
 %
-to be intersected with the record-based set~\eqref{eq:sharp}. A reference
+and intersecting it with the record-based set~\eqref{eq:sharp} gives valid
+combined bounds. The absolute reference finding rates can tighten them
+further, because they also imply $r_f \ge q^{\mathrm{ref}}_f$. A reference
 ratio of 2 with sensitivities defended to within ten percent of each other
 ($\ell = 0.9$, $u = 1.1$) places $\Rlat$ between 1.82 and 2.22. Reference-sample size should be planned from the desired
 precision and the expected condition or finding rates in the two history
 groups.
 
-\subsection*{High-sensitivity reference procedures}
+\subsection{High-sensitivity reference procedures}
 
 A second anchor comes from a procedure whose sensitivity $s$ for a narrowly
 defined condition is known, or can be bounded from below. Applied to a whole
@@ -144,7 +147,7 @@ for that narrowly defined condition; testing every file for a
 judgment-dependent compliance failure need not, and the anchor is then only as
 good as the sensitivity that can be defended.
 
-\subsection*{Independent reference adjudication}
+\subsection{Independent reference adjudication}
 
 A representative or appropriately weighted sample of program-years within
 each history group can be re-adjudicated by a reviewer who does not see the
@@ -166,7 +169,7 @@ Ordinary blind re-performance of the same work does not automatically solve
 the problem, because both reviews may miss the same condition for the same
 reason, and the shared misses are invisible to both.
 
-\subsection*{Two distinct detection procedures}
+\subsection{Two distinct detection procedures}
 
 Two imperfect procedures can reveal how much each is missing. Suppose
 procedure A vouches transaction-level evidence and procedure B obtains an
@@ -189,7 +192,7 @@ reassuring while saying little about what both missed. Vouching paired with
 an external confirmation can satisfy the first requirement; two reviewers
 re-performing the same sample with the same method do not.
 
-\subsection*{Randomized or quasi-random changes in audit attention}
+\subsection{Randomized or quasi-random changes in audit attention}
 
 Some changes in how hard an audit looks arrive for reasons unrelated to the
 underlying condition: randomized rotation, random reference selections,
@@ -203,7 +206,7 @@ variation identifies relative detection effects between the regimes it
 creates, or tightens bounds; absolute condition prevalence requires
 an additional sensitivity anchor of the kind described above.
 
-\subsection*{Procedure-based bounds}
+\subsection{Procedure-based bounds}
 
 An organization that can do none of the above may still be able to defend an
 upper bound $\Mbar$ from what it knows about its own procedures: the fraction

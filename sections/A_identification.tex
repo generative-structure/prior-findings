@@ -113,7 +113,7 @@ up after a prior finding whenever follow-up raises the catch rate by more than
 the problem was reduced; in the Remediation column, $r_0/r_1 = 2$ and $M =
 \nWorldRdetRatio{}$.
 
-\subsection*{Remark: dropping the no-false-positive assumption}
+\subsection{Remark: dropping the no-false-positive assumption}
 
 Everything above assumes a recorded finding implies a real condition. Let
 $a_f = P(F_t = 1 \mid C_t = 0,\, F_{t-1} = f)$ be the false-positive rate after
@@ -163,7 +163,7 @@ years alone do not settle which story is true. The class of $r(\cdot)$
 admitted includes functions increasing in the number of prior findings,
 constant functions, and decreasing functions.
 
-\subsection*{Remark: what restricted latent-state models do recover}
+\subsection{Remark: what restricted latent-state models do recover}
 
 Proposition~\ref{prop:full} is not a statement that longitudinal data are
 uninformative about latent dynamics. Latent-structure models, hidden Markov
@@ -205,7 +205,8 @@ q^{\mathrm{ref}}_1/q^{\mathrm{ref}}_0$.
 \item[(i)] If $s_0 = s_1$, then $R_{\mathrm{ref}} = \Rlat$ and $M = \Robs/\Rlat$.
 \item[(ii)] If $s_1/s_0 \in [\ell, u]$ with $0 < \ell \le u$, then $\Rlat \in
 [R_{\mathrm{ref}}/u,\, R_{\mathrm{ref}}/\ell]$, and intersecting with
-Proposition~\ref{prop:mono}(iii) gives the joint identified set.
+Proposition~\ref{prop:mono}(iii) gives valid combined bounds, which can be
+tightened using the absolute reference finding rates.
 \item[(iii)] Within one group, $r_f = q^{\mathrm{ref}}_f$ if $s_f = 1$; $r_f =
 q^{\mathrm{ref}}_f/s_f$ if $s_f \in (0,1)$ is known; and $r_f \in
 [q^{\mathrm{ref}}_f,\, \min(1, q^{\mathrm{ref}}_f/s_L)]$ if only $s_f \ge s_L
@@ -303,7 +304,7 @@ discards \nObsOnlyBurn{} burn-in periods. Neither the magnitude of the recorded 
 the presence of serial dependence in the record discriminates between a
 persisting condition and a persisting audit response.
 
-\subsection*{Remark: stable heterogeneity is a fourth channel}
+\subsection{Remark: stable heterogeneity is a fourth channel}
 
 Persistence, observation feedback and remediation are not the only ways a
 finding record can look autocorrelated. Entities may simply differ: some

@@ -1,0 +1,62 @@
+% Preamble for prior-findings.tex. Every number in the prose is a macro in
+% exhibits/numbers.tex or exhibits/numbers_rev.tex.
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[american]{babel}
+\usepackage[margin=1in]{geometry}
+\usepackage{mathptmx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage[labelsep=period,font=small]{caption}
+\usepackage[authoryear,round]{natbib}
+\usepackage{setspace}
+\usepackage{url}
+
+\bibliographystyle{elsarticle-harv}
+\setlength{\emergencystretch}{1em}
+\graphicspath{{exhibits/}}
+\renewcommand{\figurename}{Fig.}
+
+% Elsevier section numbering: "1. Introduction", "1.1. ...";
+% appendices "Appendix A. ..." with Eq. (A.1), Table A.1, Fig. A.1.
+\makeatletter
+\def\@seccntformat#1{\csname the#1\endcsname.\enspace}
+\newcommand{\startappendix}{%
+  \appendix
+  \def\@seccntformat##1{\ifnum\pdfstrcmp{##1}{section}=0
+    Appendix~\csname the##1\endcsname.\enspace\else
+    \csname the##1\endcsname.\enspace\fi}%
+  \counterwithin*{equation}{section}%
+  \counterwithin*{table}{section}%
+  \counterwithin*{figure}{section}%
+  \renewcommand{\theequation}{\thesection.\arabic{equation}}%
+  \renewcommand{\thetable}{\thesection.\arabic{table}}%
+  \renewcommand{\thefigure}{\thesection.\arabic{figure}}}
+\makeatother
+
+\theoremstyle{definition}
+\newtheorem{proposition}{Proposition}[section]
+
+% table notes sit below the table body (scripts/format_tables.py)
+\newcommand{\tablenotes}[1]{\par\vspace{0.6em}%
+  \begin{minipage}{\linewidth}\footnotesize\emph{Notes:} #1\end{minipage}}
+
+\input{exhibits/numbers}
+\input{exhibits/numbers_rev}
+\input{exhibits/ex3_caption}
+\input{exhibits/ex7_caption}
+\input{exhibits/exB3_caption}
+
+\newcommand{\Robs}{R_{\mathrm{obs}}}
+\newcommand{\Rlat}{R_{\mathrm{lat}}}
+\newcommand{\Mbar}{\overline{M}}
+
+\newcommand{\papertitle}{Follow-Up Is Not Discovery: What a Record of Prior
+Audit Findings Can and Cannot Tell You}
+\newcommand{\keywordline}{\noindent\textbf{Keywords:} Audit findings;
+Follow-up; Detection; Partial identification; Single Audit; Risk assessment;
+Prediction}

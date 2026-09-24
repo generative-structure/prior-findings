@@ -1,8 +1,9 @@
 # Build for "Follow-Up Is Not Discovery".
 #
 #   make            compile prior-findings.pdf
-#   make exhibits   regenerate the script-owned exhibits and numbers_rev.tex
-#                   (needs the simulation tables; see scripts/exhibits.py)
+#   make exhibits   regenerate the script-owned exhibits and numbers_rev.tex,
+#                   then apply the journal table format (needs the simulation
+#                   tables; see scripts/exhibits.py)
 #   make check      undefined references / citations in the last build
 #   make clean      remove LaTeX intermediates
 #
@@ -16,7 +17,7 @@ SECTIONS := $(wildcard sections/*.tex)
 
 all: pdf
 
-$(DOC).pdf: $(DOC).tex refs.bib $(SECTIONS) $(wildcard exhibits/*)
+$(DOC).pdf: $(DOC).tex preamble.tex refs.bib $(SECTIONS) $(wildcard exhibits/*)
 	pdflatex -interaction=nonstopmode -halt-on-error $(DOC).tex
 	bibtex $(DOC)
 	pdflatex -interaction=nonstopmode -halt-on-error $(DOC).tex
@@ -26,9 +27,10 @@ pdf: $(DOC).pdf
 
 exhibits:
 	python3 scripts/exhibits.py
+	python3 scripts/format_tables.py
 
 check:
 	@! grep -E "undefined|Undefined" $(DOC).log && echo "no undefined references" || echo "undefined references found"
 
 clean:
-	rm -f $(DOC).aux $(DOC).log $(DOC).bbl $(DOC).blg $(DOC).out $(DOC).toc $(DOC).fff $(DOC).ttt
+	rm -f $(DOC).aux $(DOC).log $(DOC).bbl $(DOC).blg $(DOC).out $(DOC).toc $(DOC).pdf

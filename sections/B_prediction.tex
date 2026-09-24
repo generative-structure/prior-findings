@@ -29,9 +29,9 @@ $\mu = P(F=1) = p\,\bar d$, and assume $0 < \pi < 1$ and $0 < \mu < 1$, so
 that both score values and both labels occur.
 
 \begin{proposition}\label{prop:aucbin}
-$\displaystyle \mathrm{AUC}(S, F) = \tfrac12 +
+$\displaystyle \mathrm{AUC}(S, F) = 1/2 +
 \frac{\pi\,p\,(1-\pi)\,(d_1 - d_0)}{2\,\mu\,(1-\mu)}$, while
-$\mathrm{AUC}(S, C) = \tfrac12$ exactly.
+$\mathrm{AUC}(S, C) = 1/2$ exactly.
 \end{proposition}
 
 The second statement is immediate from $S \perp C$. At the prespecified values
@@ -46,8 +46,8 @@ previous period's recorded finding, $S = F_{t-1}$, in the stationary regime of
 Proposition~\ref{prop:markov}, then
 %
 \[
-  \mathrm{AUC}(F_{t-1}, F_t) \;=\; \tfrac12 + \tfrac12\,p\,(d_1 - d_0)
-  \;\leq\; \frac{1+p}{2},
+  \mathrm{AUC}(F_{t-1}, F_t) \;=\; 1/2 + p\,(d_1 - d_0)/2
+  \;\leq\; (1+p)/2,
 \]
 %
 which at $p = \nBinP{}$ is bounded by \nBinStationaryBound{}, far below the
@@ -64,7 +64,7 @@ Let $S$ be uniform on $[0,1]$, independent of $C \sim \mathrm{Bernoulli}(p)$
 with $p = \nContP{}$, and let detection follow the logistic curve
 %
 \[
-  d(S) \;=\; d_{\min} + \frac{d_{\max} - d_{\min}}{1 + e^{-\alpha (S - c)}} ,
+  d(S) \;=\; d_{\min} + \frac{d_{\max} - d_{\min}}{1 + \exp\{-\alpha (S - c)\}} ,
   \qquad d_{\min} = \nContDmin{},\; d_{\max} = \nContDmax{},\; c = \nContC{} .
 \]
 %
@@ -197,7 +197,7 @@ exactly the amount it worsens the condition-label Brier score.
 
 \subsection{Robustness of the predictive results}
 
-\paragraph{Sample size.} Figure~\ref{fig:finite} gives the sampling
+\paragraph{Sample size.} Fig.~\ref{fig:finite} gives the sampling
 distributions at portfolio sizes an audit organization actually has. At
 \nFiniteNsmall{} programs the middle 95 percent of $\mathrm{AUC}(S,F)$ runs
 from \nFiniteAucFlo{} to \nFiniteAucFhi{}, a range a reviewer would read as

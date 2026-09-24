@@ -7,47 +7,9 @@
 % from verified outputs; nothing is typed by hand.  See README.md.
 % ---------------------------------------------------------------------------
 \documentclass[12pt]{article}
+\input{preamble}
 
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage[american]{babel}
-\usepackage[margin=1in]{geometry}
-\usepackage{mathptmx}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{booktabs}
-\usepackage{array}
-\usepackage{graphicx}
-\usepackage{natbib}
-\usepackage{setspace}
-\usepackage{url}
-% Journal convention: text, references, then figures and tables.
-\usepackage[nolists,nomarkers,figuresfirst]{endfloat}
-\renewcommand{\efloatseparator}{\mbox{}}
-
-\bibliographystyle{plainnat}
-\setcitestyle{authoryear,round}
-
-\setlength{\emergencystretch}{1em}
-\graphicspath{{exhibits/}}
-\renewcommand{\thesection}{\arabic{section}}
-
-\theoremstyle{definition}
-\newtheorem{proposition}{Proposition}[section]
-
-\input{exhibits/numbers}
-\input{exhibits/numbers_rev}
-\input{exhibits/ex3_caption}
-\input{exhibits/ex7_caption}
-\input{exhibits/exB3_caption}
-
-\newcommand{\Robs}{R_{\mathrm{obs}}}
-\newcommand{\Rlat}{R_{\mathrm{lat}}}
-\newcommand{\Mbar}{\overline{M}}
-
-\title{\textbf{Follow-Up Is Not Discovery:\\
-What a Record of Prior Audit Findings Can and Cannot Tell You}}
+\title{\textbf{\papertitle}}
 \date{}
 
 \begin{document}
@@ -60,13 +22,7 @@ What a Record of Prior Audit Findings Can and Cannot Tell You}}
 \end{abstract}
 
 \vspace{1em}
-\noindent\textbf{Keywords:} audit findings; follow-up; detection; risk
-assessment; partial identification; Single Audit; predictive validation.
-
-\vspace{1em}
-\noindent\textbf{Data:} all data used in this study are public Federal Audit
-Clearinghouse bulk files; Appendix~\ref{app:emp} describes the acquisition and
-the reproduction path.
+\keywordline
 
 \newpage
 \doublespacing
@@ -81,17 +37,20 @@ the reproduction path.
 \input{sections/08_operational}
 \input{sections/09_conclusion}
 
-\singlespacing
-\bibliography{refs}
+\IfFileExists{declarations/genai.tex}{%
+\section*{Declaration of generative AI and AI-assisted technologies in the
+writing process}
+\input{declarations/genai}}{}
 
-% flush the main-text figures and tables here, before the appendices
-\processdelayedfloats
+\input{sections/Z_data_availability}
 
-\appendix
-\renewcommand{\thesection}{\Alph{section}}
-\doublespacing
+\startappendix
 \input{sections/A_identification}
 \input{sections/B_prediction}
 \input{sections/C_empirical}
+
+\clearpage
+\singlespacing
+\bibliography{refs}
 
 \end{document}

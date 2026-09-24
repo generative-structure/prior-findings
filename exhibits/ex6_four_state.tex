@@ -1,22 +1,6 @@
 \begin{table}[tbp]
 \centering
-\caption{\textbf{What follows a prior-year finding.} Sample A: 206,926 program-years
-in which the same program was audited as a major program in both years, 39,067 with
-a finding in the prior year and 167,859 without. The four outcomes in the first panel
-are mutually exclusive and, under the auditor's repeat flag used here, exhaust
-the possibilities, so their risk differences add to the difference in ``any
-finding'' exactly. Intervals are 95 percent
-cluster bootstrap, 1,000 replications resampling 45,952 auditees with their full
-histories, seed 20260918. Every interval excludes zero. The row that is easy to miss
-is ``any new finding'': counting only the periods whose \emph{sole} outcome was
-new understates it by roughly a factor of 2.23 on the ratio scale, because ``new
-only'' excludes every period that also recorded a repeat. A period can land in
-``both'' because repeat follow-up is thorough, or because the program has
-several distinct deficiencies; these data do not separate the two. The
-ratio column is left blank for the three repeat-involving rows: with no prior
-finding a recorded repeat is close to impossible, so the baseline is
-structurally near zero and the ratio is arbitrarily large rather than
-informative. The risk differences are the usable quantities there.}
+\caption{What follows a prior-year finding.}
 \label{tab:fourstate}
 \footnotesize
 \setlength{\tabcolsep}{4.5pt}
@@ -42,4 +26,21 @@ Findings recorded, total & 0.1029 & 1.1712 & $+1.0683$ & $[1.0209,\, 1.1182]$ & 
 \quad of which new & 0.1002 & 0.4245 & $+0.3243$ & $[0.3076,\, 0.3422]$ & \\
 \bottomrule
 \end{tabular}
+\tablenotes{Sample A: 206,926 program-years
+in which the same program was audited as a major program in both years, 39,067 with
+a finding in the prior year and 167,859 without. The four outcomes in the first panel
+are mutually exclusive and, under the auditor's repeat flag used here, exhaust
+the possibilities, so their risk differences add to the difference in ``any
+finding'' exactly. Intervals are 95 percent
+cluster bootstrap, 1,000 replications resampling 45,952 auditees with their full
+histories, seed 20260918. Every interval excludes zero. The row that is easy to miss
+is ``any new finding'': counting only the periods whose \emph{sole} outcome was
+new understates it by roughly a factor of 2.23 on the ratio scale, because ``new
+only'' excludes every period that also recorded a repeat. A period can land in
+``both'' because repeat follow-up is thorough, or because the program has
+several distinct deficiencies; these data do not separate the two. The
+ratio column is left blank for the three repeat-involving rows.
+Repeat-involving baseline probabilities are very small in this sample, making
+their ratios sensitive to small denominators; risk differences are reported
+instead.}
 \end{table}
