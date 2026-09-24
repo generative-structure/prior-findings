@@ -1,13 +1,13 @@
 # Build for "Follow-Up Is Not Discovery".
 #
 #   make            compile prior-findings.pdf
-#   make exhibits   regenerate the four script-owned exhibits (needs the
-#                   simulation tables; see scripts/exhibits.py)
+#   make exhibits   regenerate the script-owned exhibits and numbers_rev.tex
+#                   (needs the simulation tables; see scripts/exhibits.py)
 #   make check      undefined references / citations in the last build
 #   make clean      remove LaTeX intermediates
 #
-# Every number in the prose is a macro in exhibits/numbers.tex; nothing is
-# typed by hand.
+# Every number in the prose is a macro in exhibits/numbers.tex or
+# exhibits/numbers_rev.tex; nothing is typed by hand.
 
 DOC := prior-findings
 SECTIONS := $(wildcard sections/*.tex)

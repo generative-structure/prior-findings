@@ -3,7 +3,8 @@
 The finding record does not point-identify the underlying condition, but it
 does impose useful bounds. Three statements hold, needing in turn no
 additional assumption about detection, one assumption about the direction of
-follow-up, and one number about its size.
+follow-up, and one number about its size. All three rest on the
+no-false-positive assumption of Section~\ref{sec:intro}.
 
 \subsection*{With no additional assumption about detection: a floor and a wide range}
 
@@ -12,7 +13,7 @@ history group must be at least as high as the recorded finding rate: $d_f \le
 1$ in equation~\eqref{eq:qrd} gives $r_f \ge q_f$. If five percent of
 clean-history program-years record a finding, at least five percent had the
 condition. Without known complete detection, a recorded finding rate is a lower bound
-on the underlying condition rate, not generally an estimate of it.
+on the underlying condition rate, not an estimate of it.
 
 The question a planner asks is about the ratio, and the floor alone leaves it
 wide. $\Rlat$ is largest when the prior-finding group's problem rate is as
@@ -86,10 +87,28 @@ down by the part of the elevation the follow-up can account for. And whenever
 the recorded ratio exceeds $\Mbar$, the underlying association is genuinely
 positive (Proposition~\ref{prop:mono}).
 
+These bounds are sharp once the floor $r_f \ge q_f$ is added. Each detection
+probability lies between $q_f$ and one, so the multiplier cannot exceed
+$1/q_0$, and the multipliers consistent with the record are $1 \le M \le
+\min\{\Mbar, 1/q_0\}$. The identified set is
+%
+\begin{equation}\label{eq:sharp}
+  \Rlat \;\in\; \Bigl[\, \max\Bigl\{ q_1,\; \frac{\Robs}{\Mbar} \Bigr\},\; \Robs \,\Bigr] ,
+\end{equation}
+%
+and every value in it is produced by some admissible pair of detection
+probabilities (Proposition~\ref{prop:mono}(iii)). At the values of
+Table~\ref{tab:worlds} with $\Mbar = 2$ the set is $[2, 4]$.
+
 The binding identification constraint on what an auditor can learn from a
 finding record is therefore not sample size or a more elaborate estimator; it
 is what can be said about detection, summarized in $M$. Sample size still
-governs precision. What can be said about detection is a question about audit
+governs precision. The propositions are population statements about $q_0$ and
+$q_1$; in data, $\Robs$ is estimated, and each conclusion needs the matching
+confidence limit. A negative underlying association requires an upper
+confidence limit for $\Robs$ below one. A positive association under a
+defended $\Mbar$ requires a lower confidence limit for $\Robs$ above
+$\Mbar$. What can be said about detection is a question about audit
 procedures, answerable by the organization that performs them and not from
 the record; Section~\ref{sec:operational} sets out how.
 

@@ -10,16 +10,16 @@ results are Propositions~\ref{prop:ref} and \ref{prop:twoproc} in
 Appendix~\ref{app:id}.}
 \label{tab:designs}
 \small
-\begin{tabular}{p{0.30\textwidth}p{0.30\textwidth}p{0.32\textwidth}}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.27\textwidth}>{\raggedright\arraybackslash}p{0.36\textwidth}>{\raggedright\arraybackslash}p{0.29\textwidth}}
 \toprule
 Design & What it supplies & Critical assumption \\
 \midrule
-Reference observation under a common measurement rule & $\Rlat$, hence $M = \Robs/\Rlat$ & Common sensitivity in the two history groups; no false positives \\
-High-sensitivity reference procedure & Anchor for $r$, hence $d = q/r$ & Known or credibly near-perfect sensitivity for the target condition \\
+Reference observation under a common measurement rule & $\Rlat$, hence $M = \Robs/\Rlat$; with $s_1/s_0 \in [\ell, u]$, $\Rlat \in [R_{\mathrm{ref}}/u,\, R_{\mathrm{ref}}/\ell]$ & Common sensitivity in the two history groups, or a defended range for its ratio; no false positives \\
+Reference procedure of known or bounded sensitivity & $r = q^{\mathrm{ref}}$ if $s = 1$; $r = q^{\mathrm{ref}}/s$ if $s$ is known; $r \in [q^{\mathrm{ref}}, \min(1, q^{\mathrm{ref}}/s_L)]$ if $s \ge s_L$; hence $d = q/r$ or bounds on it & Known sensitivity, or a defended lower bound $s_L$, for the target condition; no false positives \\
 Independent reference adjudication & $d_0$, $d_1$ directly & Reference status credible enough to stand in for the condition \\
 Two distinct procedures & $r$, $d$ within a history group & Conditionally independent failures; stable sensitivity; no false positives \\
 Randomized or quasi-random attention shift & Relative detection; tighter bounds & Exclusion restriction: the shift does not alter or select on the condition \\
-Procedure-based bound & $\Mbar$, hence $\Rlat \ge \Robs/\Mbar$ & A defensible model linking procedures to detection probability \\
+Procedure-based bound & $\Mbar$, hence $\Rlat \in [\max\{q_1, \Robs/\Mbar\}, \Robs]$ & A defensible model linking procedures to detection probability \\
 \bottomrule
 \end{tabular}
 \end{table}

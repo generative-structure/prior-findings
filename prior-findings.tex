@@ -3,8 +3,8 @@
 % Cannot Tell You.  Anonymized manuscript source.
 %
 % Build: make  (pdflatex + bibtex).  Every number in the prose is a macro
-% defined in exhibits/numbers.tex, generated from verified outputs; nothing
-% is typed by hand.  See README.md.
+% defined in exhibits/numbers.tex or exhibits/numbers_rev.tex, generated
+% from verified outputs; nothing is typed by hand.  See README.md.
 % ---------------------------------------------------------------------------
 \documentclass[12pt]{article}
 
@@ -17,6 +17,7 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{booktabs}
+\usepackage{array}
 \usepackage{graphicx}
 \usepackage{natbib}
 \usepackage{setspace}
@@ -36,6 +37,7 @@
 \newtheorem{proposition}{Proposition}[section]
 
 \input{exhibits/numbers}
+\input{exhibits/numbers_rev}
 \input{exhibits/ex3_caption}
 \input{exhibits/ex7_caption}
 \input{exhibits/exB3_caption}

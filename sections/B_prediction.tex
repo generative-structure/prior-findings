@@ -25,7 +25,8 @@ indistinguishable from the validation output alone.
 
 Let $S \sim \mathrm{Bernoulli}(\pi)$ independent of $C$, with detection $d_1$
 when $S=1$ and $d_0$ when $S=0$. Write $\bar d = \pi d_1 + (1-\pi) d_0$ and
-$\mu = P(F=1) = p\,\bar d$.
+$\mu = P(F=1) = p\,\bar d$, and assume $0 < \pi < 1$ and $0 < \mu < 1$, so
+that both score values and both labels occur.
 
 \begin{proposition}\label{prop:aucbin}
 $\displaystyle \mathrm{AUC}(S, F) = \tfrac12 +
@@ -59,13 +60,59 @@ about that condition too, and the bound does not apply.
 
 \subsection{A continuous score}
 
-Let $S$ be continuous with a logistic detection curve $d(S)$ of steepness
-$\alpha$, again independent of $C$. As $\alpha$ grows, detection becomes a
-sharper function of the score and $\mathrm{AUC}(S,F)$ can be driven toward one
-while $\mathrm{AUC}(S,C)$ remains exactly one-half. At $\alpha = 40$ the exact
-value by quadrature is $\mathrm{AUC}(S,F) = \nContAucExact{}$, with a Monte
-Carlo value of \nContAucMC{}, against a Monte Carlo $\mathrm{AUC}(S,C) =
-\nContAucC{}$.
+Let $S$ be uniform on $[0,1]$, independent of $C \sim \mathrm{Bernoulli}(p)$
+with $p = \nContP{}$, and let detection follow the logistic curve
+%
+\[
+  d(S) \;=\; d_{\min} + \frac{d_{\max} - d_{\min}}{1 + e^{-\alpha (S - c)}} ,
+  \qquad d_{\min} = \nContDmin{},\; d_{\max} = \nContDmax{},\; c = \nContC{} .
+\]
+%
+The steepness $\alpha$ takes the prespecified values 0, 2, 5, 10, 20 and
+\nContAlphaMax{}, each simulated with $N = 10^6$ programs; exact values are
+computed by trapezoidal quadrature on a grid of 200,001 points. A sufficiently
+score-dependent detection process can produce high recorded-label AUC while
+the score remains independent of the underlying condition. The attainable AUC
+depends on the score distribution, the detection curve and average detection
+(Proposition~\ref{prop:aucenv}). In this configuration $\mathrm{AUC}(S,F)$
+rises with $\alpha$; at $\alpha = \nContAlphaMax{}$ the exact value is
+\nContAucExact{}, with a Monte Carlo value of \nContAucMC{}, against a Monte
+Carlo $\mathrm{AUC}(S,C) = \nContAucC{}$. As $\alpha$ grows without bound,
+detection approaches a step at $c$ and $\mathrm{AUC}(S,F)$ approaches
+\nContAucLimit{}.
+
+\begin{proposition}[AUC envelope]\label{prop:aucenv}
+Let $S \perp C$ with $P(C = 1) = p \in (0,1)$, let $d(S) \in [0,1]$ with
+$\bar d = E[d(S)] \in (0,1]$, and let $\mu = p\,\bar d$. Then
+%
+\[
+  \mathrm{AUC}(S,F) \;\le\; 1 - \frac{(1-p)\,\bar d}{2\,(1 - \mu)} ,
+\]
+%
+with ties counted one-half. Equality holds when detection is one on a set of
+scores of probability $\bar d$, every score in that set ranks above every score
+outside it, and detection is zero outside it.
+\end{proposition}
+
+\begin{proof}
+Relative to the law of $S$, the law of $S$ given $F = 1$ has density $d/\bar
+d$, and the law given $F = 0$ has density $(1 - p\,d)/(1 - \mu)$. Since $1 -
+p\,d = (1-p)\,d + (1 - d)$, the second law is the mixture $\lambda L_1 +
+(1-\lambda) G$, where $L_1$ is the law given $F = 1$, $\lambda = (1-p)\bar
+d/(1-\mu) \in (0,1]$, and $G$ has density $(1-d)/(1-\bar d)$ (if $\bar d = 1$,
+$\lambda = 1$). AUC is linear in the law of the negative class, a law compared
+with itself has AUC one-half, and any AUC is at most one, so $\mathrm{AUC}(S,F)
+\le \lambda/2 + (1 - \lambda) = 1 - \lambda/2$. Equality requires
+$\mathrm{AUC}(L_1, G) = 1$, which the stated configuration achieves.
+\end{proof}
+
+In audit terms: however detection is steered, a score that knows nothing about
+the condition cannot exceed this ceiling against the record, and it can reach
+the ceiling. At $p = \nBudgetP{}$ and $\bar d = \nBudgetDetection{}$, the values
+of the fixed-average-detection construction below, the ceiling is
+\nAucEnvelope{}; that construction reaches \nBudgetAucFend{} because its binary
+score flags only a quarter of programs and caps detection at one within
+them.
 
 \subsection{Calibration}
 
@@ -80,6 +127,9 @@ range.
 $E[F \mid S] = P(F=1 \mid S) = p\,d(S) = m(S)$, and $m$ is a function of $S$, so
 $E[F \mid m] = m$. Since $S \perp C$, $E[C \mid S] = p$, hence $E[C \mid m] = p$.
 \end{proof}
+
+The calibration table uses the continuous configuration above at $\alpha =
+20$.
 
 Table~\ref{tab:calib} shows this numerically. Across deciles of the score, mean
 predictions run from \nCalibLo{} to \nCalibHi{}, a span of roughly
@@ -116,7 +166,34 @@ Brier score against the recorded finding falls monotonically from
 \nBudgetBrierFstart{} to \nBudgetBrierFend{}, and the Brier score against the
 underlying condition rises monotonically from \nBudgetBrierCstart{} to
 \nBudgetBrierCend{}. Table~\ref{tab:budget} gives the grid. The configuration
-was fixed in advance and no parameter search was performed.
+was fixed in advance and no parameter search was performed. The two Brier
+series move by exactly the same amount in opposite directions, for a reason
+that holds for every score.
+
+\begin{proposition}[Brier identities]\label{prop:brier}
+Let $S \perp C$, $m(S) = p\,d(S)$ and $\mu = p\,\bar d$. Then
+%
+\begin{align*}
+  \mathrm{Brier}_F &= E[(m - F)^2] = \mu(1-\mu) - p^2 \operatorname{Var} d(S), \\
+  \mathrm{Brier}_C &= E[(m - C)^2] = p(1-p) + (p - \mu)^2 + p^2 \operatorname{Var} d(S).
+\end{align*}
+%
+In the fixed-average-detection construction $\operatorname{Var} d(S) =
+\pi(1-\pi)k^2$, so $\Delta\mathrm{Brier}_C = -\Delta\mathrm{Brier}_F =
+p^2\pi(1-\pi)k^2$.
+\end{proposition}
+
+\begin{proof}
+$E[F \mid S] = m$ gives $E[(m - F)^2] = E[m] - E[m^2] = \mu - \mu^2 -
+\operatorname{Var} m$. $S \perp C$ gives $E[mC] = p\mu$, so $E[(m - C)^2] =
+E[m^2] - 2p\mu + p = \operatorname{Var} m + (p - \mu)^2 + p(1-p)$. Finally
+$\operatorname{Var} m = p^2 \operatorname{Var} d(S)$, and for the binary score
+$\operatorname{Var} d(S) = \pi(1-\pi)(d_1 - d_0)^2 = \pi(1-\pi)k^2$.
+\end{proof}
+
+At the end of the grid the shift is \nBrierShift{} in each direction. Holding
+average detection fixed, targeting improves the recorded-label Brier score by
+exactly the amount it worsens the condition-label Brier score.
 
 \subsection{Robustness of the predictive results}
 
@@ -130,15 +207,18 @@ configuration.
 
 \paragraph{A fitted model rather than an oracle.} The scores above are oracles:
 the exact functional form is known. Fitting a conventional flexible learner
-by cross-validation instead recovers the oracle closely and inherits its
-property: correlation with the oracle between \nFitCorrLo{} and \nFitCorrHi{},
+instead (gradient-boosted trees of depth three, learning rate 0.05, 200
+iterations, five-fold stratified cross-fitting, on the continuous
+configuration at $\alpha = \nFitAlpha{}$) recovers the oracle closely and
+inherits its property: correlation with the oracle between \nFitCorrLo{} and \nFitCorrHi{},
 $\mathrm{AUC}(S,F) = \nFitAucF{}$ against an oracle value of
 \nFitAucFOracle{}, and $\mathrm{AUC}(S,C) = \nFitAucC{}$. Nothing about the
 phenomenon requires the analyst to know the true detection function; an
 ordinary model discovers it from the data.
 
 \paragraph{False positives.} Relaxing the no-false-positive assumption, so that
-a finding can be recorded where no condition exists at rates $a_0$ and $a_1$,
+a finding can be recorded where no condition exists at rates $a_0$ and $a_1$
+and the recorded rate is $p\,d_s + (1-p)\,a_s$ for score value $s$,
 attenuates the recorded risk ratio but does not overturn the qualitative
 conclusion: with $a_0 = a_1 = \nFPrate{}$, $d_0 = \nFPdzero{}$ and
 $d_1 = \nFPdone{}$, \nFPshare{}~percent of recorded findings are false positives,

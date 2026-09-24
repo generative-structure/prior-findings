@@ -22,7 +22,8 @@ it does. The score is statistically independent of where the conditions
 actually are; it knows nothing. Measured against the recorded finding, its
 AUC climbs from \mBudgetAucFstart{}, a coin flip, to \mBudgetAucFend{}, and
 its Brier score improves. Measured against the underlying condition, its AUC
-is exactly \mBudgetAucC{} at every point and its prediction error gets worse.
+is exactly \mBudgetAucC{} at every point and its Brier score worsens by exactly
+the amount the recorded-label Brier score improves.
 On a validation report this reads as a model that became genuinely
 discriminating, with no change in average detection. The calculation is
 exact, from a single prespecified configuration.

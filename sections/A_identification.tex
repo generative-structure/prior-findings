@@ -19,7 +19,10 @@ $f \in \{0,1\}$ for the prior-period record $F_{t-1}$, and define
 \]
 %
 Call $r_f$ the underlying rate, $d_f$ the detection probability and $q_f$ the
-recorded rate. Write $\Rlat = r_1/r_0$, $\Robs = q_1/q_0$ and $M = d_1/d_0$.
+recorded rate. Write $\Rlat = r_1/r_0$, $\Robs = q_1/q_0$ and $M = d_1/d_0$,
+the history-conditioned detection multiplier. Every quantity conditions on
+the prior recorded history $F_{t-1}$: each compares groups defined by that
+history, and none is a causal effect of remediation or follow-up.
 The observable data determine $q_0$ and $q_1$ and nothing else. In
 Propositions~\ref{prop:two}--\ref{prop:remed} take $q_0 > 0$ and $q_1 > 0$,
 which is the empirically relevant case and is needed for the ratios to be
@@ -39,7 +42,7 @@ the product form.
 
 In audit terms: the recorded finding rate is the problem rate times the catch
 rate, so the problem rate is at least the recorded rate, and the recorded risk
-ratio is the underlying risk ratio times the follow-up detection multiplier.
+ratio is the underlying risk ratio times the detection multiplier.
 
 \begin{proposition}[Unrestricted bounds]\label{prop:bounds}
 $\Rlat \in [\,q_1,\; 1/q_0\,]$, and both endpoints are attained.
@@ -67,7 +70,10 @@ Consequently:
 \begin{enumerate}
 \item[(i)] $\Robs < 1 \implies \Rlat < 1$;
 \item[(ii)] if in addition $d_1/d_0 \leq \Mbar$ for a known $\Mbar \geq 1$,
-then $\Rlat \geq \Robs/\Mbar$, so $\Robs > \Mbar \implies \Rlat > 1$.
+then $\Rlat \geq \Robs/\Mbar$, so $\Robs > \Mbar \implies \Rlat > 1$;
+\item[(iii)] under $1 \le d_1/d_0 \le \Mbar$ and no other restriction, the
+identified set for $M$ is $[\,1,\; \min\{\Mbar, 1/q_0\}\,]$ and the identified
+set for $\Rlat$ is $[\,\max\{q_1,\, \Robs/\Mbar\},\; \Robs\,]$; both are sharp.
 \end{enumerate}
 \end{proposition}
 
@@ -75,7 +81,14 @@ then $\Rlat \geq \Robs/\Mbar$, so $\Robs > \Mbar \implies \Rlat > 1$.
 From Proposition~\ref{prop:two}, $\Robs = \Rlat\,(d_1/d_0)$. If $d_1/d_0 \geq
 1$ then $\Rlat = \Robs/(d_1/d_0) \leq \Robs$; the lower bound is unchanged
 from Proposition~\ref{prop:bounds}. Part~(i) is immediate. For part~(ii),
-$\Rlat = \Robs/(d_1/d_0) \geq \Robs/\Mbar$.
+$\Rlat = \Robs/(d_1/d_0) \geq \Robs/\Mbar$. For part~(iii), $d_1 \le 1$ and
+$d_0 = q_0/r_0 \ge q_0$ give $M \le 1/q_0$, so every admissible $M$ lies in
+$[1, \min\{\Mbar, 1/q_0\}]$. Conversely, for any $M$ in that interval set $d_1
+= 1$, $d_0 = 1/M$, $r_1 = q_1$ and $r_0 = q_0 M$; then $r_1 \in [q_1, 1]$, $r_0
+\in [q_0, 1]$ because $1 \le M \le 1/q_0$, and $r_f d_f = q_f$. Every $M$ in
+the interval is therefore attained, and $\Rlat = \Robs/M$ traces
+$[\Robs/\min\{\Mbar, 1/q_0\}, \Robs] = [\max\{q_1, \Robs/\Mbar\}, \Robs]$,
+using $\Robs q_0 = q_1$.
 \end{proof}
 
 In audit terms: if follow-up can only raise the catch rate, the recorded risk
@@ -102,13 +115,22 @@ the problem was reduced; in the Remediation column, $r_0/r_1 = 2$ and $M =
 
 \subsection*{Remark: dropping the no-false-positive assumption}
 
-Everything above assumes a recorded finding implies a real condition. If
-findings can be recorded where none exists, the floor $r_f \geq q_f$ of
-Proposition~\ref{prop:two} no longer holds, and with it the lower endpoint of
-every interval above. Identification is then weaker, not stronger, unless
-specificity is separately constrained. The assumption is kept because it is
-the natural approximation for a formally adjudicated audit finding and because
-it isolates the problem; relaxing it does not rescue anything.
+Everything above assumes a recorded finding implies a real condition. Let
+$a_f = P(F_t = 1 \mid C_t = 0,\, F_{t-1} = f)$ be the false-positive rate after
+history $f$. Then
+%
+\[
+  q_f \;=\; r_f\, d_f \;+\; (1 - r_f)\, a_f .
+\]
+%
+The multiplicative identity $q_f = r_f d_f$, the floor $r_f \ge q_f$ and every
+result built on them, Propositions~\ref{prop:two}--\ref{prop:full} and the
+design results below, hold when $a_0 = a_1 = 0$, or under a modeled
+restriction on $(a_0, a_1)$ carried through the algebra. Without such a
+restriction the floor fails: $r_f = 0$ with $a_f = q_f$ reproduces any
+recorded rate, so the record alone does not bound $r_f$ from below. The
+assumption is kept because it is the natural approximation for a formally
+adjudicated audit finding and because it isolates the problem.
 Appendix~\ref{app:pred} reports the corresponding predictive results with
 false positives allowed.
 
@@ -159,10 +181,11 @@ observed outside the record, or measured directly, the model leaves the class
 covered by Proposition~\ref{prop:full}. Leaving that class is necessary for
 identification and not sufficient for it: whether a particular restricted
 model is identified is a question about that model, to be settled for it
-specifically. What cannot work is leaving both factors free. A class that
-admits the always-present condition, $r(h) \equiv 1$ with $d(h) = q(h)$,
-contains a member that reproduces any observed law, and is not identified from
-the record alone.
+specifically. What cannot work is leaving both factors free. Whenever the
+admissible class contains distinct underlying-rate functions satisfying $r(h)
+\ge q(h)$, the corresponding choices $d(h) = q(h)/r(h)$ (arbitrary where $r(h)
+= 0$) generate observationally equivalent models, and the class is not
+identified from the record alone.
 
 \subsection{Detection information from outside the record}
 
@@ -171,37 +194,51 @@ Section~\ref{sec:operational} that identify $M$ rather than bound it. Both
 are standard; they are stated here in the paper's notation.
 
 \begin{proposition}[Reference observation under a common measurement rule]\label{prop:ref}
-Suppose a reference procedure with sensitivity $s \in (0,1]$ for the target
-condition and no false positives is applied to program-years that, within
+Suppose a reference procedure with sensitivity $s_f \in (0,1]$ for the
+target condition in history group $f$ and no false positives is applied to program-years that, within
 each history group $f$, represent that group, by probability sampling or
 through known weights, and that the procedure does not alter the condition.
-Let $s$ be common to both history groups and let $q^{\mathrm{ref}}_f$ be the
-(weighted) reference finding rate after history $f$. Then $q^{\mathrm{ref}}_1
-/ q^{\mathrm{ref}}_0 = \Rlat$, and $M = \Robs / \Rlat$.
+Let $q^{\mathrm{ref}}_f > 0$ be the (weighted) reference finding rate after
+history $f$, and $R_{\mathrm{ref}} =
+q^{\mathrm{ref}}_1/q^{\mathrm{ref}}_0$.
+\begin{enumerate}
+\item[(i)] If $s_0 = s_1$, then $R_{\mathrm{ref}} = \Rlat$ and $M = \Robs/\Rlat$.
+\item[(ii)] If $s_1/s_0 \in [\ell, u]$ with $0 < \ell \le u$, then $\Rlat \in
+[R_{\mathrm{ref}}/u,\, R_{\mathrm{ref}}/\ell]$, and intersecting with
+Proposition~\ref{prop:mono}(iii) gives the joint identified set.
+\item[(iii)] Within one group, $r_f = q^{\mathrm{ref}}_f$ if $s_f = 1$; $r_f =
+q^{\mathrm{ref}}_f/s_f$ if $s_f \in (0,1)$ is known; and $r_f \in
+[q^{\mathrm{ref}}_f,\, \min(1, q^{\mathrm{ref}}_f/s_L)]$ if only $s_f \ge s_L
+> 0$ is defended.
+\end{enumerate}
 \end{proposition}
 
 \begin{proof}
 Representativeness within each history group means the condition rate in the
 reference observations after history $f$ is $r_f$, so $q^{\mathrm{ref}}_f =
-r_f\, s$ by the argument of Proposition~\ref{prop:two}. The ratio is $r_1 s /
-r_0 s = \Rlat$ because $s$ is common. Then $M = \Robs/\Rlat$ by
-Proposition~\ref{prop:two}.
+r_f\, s_f$ by the argument of Proposition~\ref{prop:two}. Hence
+$R_{\mathrm{ref}} = \Rlat\,(s_1/s_0)$, which gives (i), and (ii) follows by
+dividing by the two ends of $[\ell, u]$. For (iii), $r_f =
+q^{\mathrm{ref}}_f/s_f$; with $s_f \in [s_L, 1]$ this lies in
+$[q^{\mathrm{ref}}_f, q^{\mathrm{ref}}_f/s_L]$, and $r_f \le 1$. Then $M =
+\Robs/\Rlat$ by Proposition~\ref{prop:two}.
 \end{proof}
 
 In audit terms: a reference sample that represents each history group, worked
 under the same rule in both, reveals how much more common the problem is
 after a prior finding even though the reference procedure misses some of it,
 because what it misses cancels in the ratio; dividing the targeted record's
-ratio by that number gives the follow-up detection multiplier. The sample may
-be stratified on history; what it may not do is have a procedure whose
-sensitivity differs between the groups. If $s_1 \ne s_0$, the reference ratio
-equals $\Rlat \cdot (s_1/s_0)$ and the cancellation fails.
+ratio by that number gives the detection multiplier. The sample may be
+stratified on history. If the procedure's sensitivity differs between the
+groups, the reference ratio equals $\Rlat \cdot (s_1/s_0)$; a defended range
+for that ratio still bounds $\Rlat$.
 
 \begin{proposition}[Two conditionally independent procedures]\label{prop:twoproc}
 Within one history group, apply two procedures A and B to the same
-program-years, with detection probabilities $a$ and $b$ given $C = 1$ that
-are constant across the program-years pooled, no false positives, and
-$A \perp B \mid C$. Let $P_A$, $P_B$ and $P_{AB}$ be the
+program-years, with detection probabilities $a > 0$ and $b > 0$ given $C =
+1$ that are constant across the program-years pooled, condition rate $r > 0$,
+no false positives, and $A \perp B \mid C$. Then $P_A$, $P_B$ and $P_{AB}$
+below are positive. Let $P_A$, $P_B$ and $P_{AB}$ be the
 probabilities that A finds a condition, that B finds one, and that both do.
 Then $a = P_{AB}/P_B$, $b = P_{AB}/P_A$ and $r = P_A P_B / P_{AB}$.
 \end{proposition}
@@ -224,19 +261,33 @@ audit uses.
 \subsection{Serial dependence generated by observation alone}
 
 \begin{proposition}[Observation-only dynamics]\label{prop:markov}
-Suppose $C_t$ is independent across $t$ with $P(C_t=1) = p$, and detection
-depends on the record through $d_{F_{t-1}}$ alone. Then $\{F_t\}$ is a two-state
-Markov chain with $q_0 = p\,d_0$ and $q_1 = p\,d_1$; its autocorrelation is
-$\rho_k = \lambda^k$ with $\lambda = q_1 - q_0 = p\,(d_1 - d_0)$; and
-$\rho_1 \leq p$.
+Let $\{C_t\}$ be i.i.d.\ Bernoulli$(p)$ with $0 < p < 1$, and generate the
+record sequentially: $F_t = C_t D_t$, where, given $F_{t-1}$, $D_t$ is
+Bernoulli$(d_{F_{t-1}})$ and independent of $C_t$ and of all earlier
+$(C_s, D_s)$. Write $q_0 = p\,d_0$ and $q_1 = p\,d_1$, and assume $q_0 > 0$
+and $q_1 < 1$. Initialize $F_0$ from the stationary distribution,
+$P(F_0 = 1) = \mu_*$ with
+%
+\[
+  \mu_* \;=\; \frac{q_0}{1 - q_1 + q_0} ,
+\]
+%
+so that $0 < \mu_* < 1$. Then $\{F_t\}$ is a stationary two-state Markov chain
+with transition probabilities $q_0$ and $q_1$ and $P(F_t = 1) = \mu_*$ for
+every $t$; its autocorrelation is $\rho_k = \lambda^k$ with $\lambda = q_1 -
+q_0 = p\,(d_1 - d_0)$; and $\rho_1 \leq p$.
 \end{proposition}
 
 \begin{proof}
-$P(F_t=1 \mid F_{t-1}=f) = p\,d_f$ by Proposition~\ref{prop:two} and the
-independence of $C_t$ from the past. A two-state chain with transition
-probabilities $q_0$ and $q_1$ has lag-one autocorrelation $q_1 - q_0$ and
-$\rho_k = (q_1-q_0)^k$. Finally $\lambda = p(d_1-d_0) \leq p$ since
-$d_1 - d_0 \leq 1$.
+Because $C_t$ is independent of the past and $D_t$ depends on the past only
+through $F_{t-1}$, $P(F_t = 1 \mid F_{t-1} = f, F_{t-2}, \dots) = p\,d_f =
+q_f$, so $\{F_t\}$ is Markov with transition probabilities $q_0$, $q_1$. The
+value $\mu_*$ solves $\mu = \mu q_1 + (1 - \mu) q_0$, so initializing at
+$\mu_*$ makes the chain stationary, and $q_0 > 0$, $q_1 < 1$ give $0 < \mu_* <
+1$, so $\operatorname{Var}(F_t) = \mu_*(1 - \mu_*) > 0$. For a two-state chain,
+$P(F_{t+k} = 1 \mid F_t = f) = \mu_* + \lambda^k (f - \mu_*)$, hence
+$\operatorname{Cov}(F_t, F_{t+k}) = \lambda^k \mu_*(1 - \mu_*)$ and $\rho_k =
+\lambda^k$. Finally $\lambda = p(d_1 - d_0) \leq p$ since $d_1 - d_0 \leq 1$.
 \end{proof}
 
 In audit terms: even when the problem comes and goes at random with no
@@ -244,8 +295,11 @@ memory at all, a follow-up rule makes the finding record look like it has
 memory, and the recorded risk ratio ($M$ here, since $\Rlat = 1$) says
 nothing about how strong that apparent memory is. In the exact case with
 $p = \nObsOnlyP{}$, $d_0 = \nObsOnlyDzero{}$ and $d_1 = \nObsOnlyDone{}$, the
-recorded risk ratio is \nObsOnlyRR{} while the lag-one autocorrelation of the
-record is \nObsOnlyRho{}. Neither the magnitude of the recorded elevation nor
+stationary finding prevalence is \nObsOnlyMuStar{}, the recorded risk ratio is
+\nObsOnlyRR{}, and the lag-one autocorrelation of the record is
+\nObsOnlyRho{}. These are the exact stationary values; the accompanying
+simulation (Appendix~\ref{app:emp}) starts every entity at $F = 0$ and
+discards \nObsOnlyBurn{} burn-in periods. Neither the magnitude of the recorded elevation nor
 the presence of serial dependence in the record discriminates between a
 persisting condition and a persisting audit response.
 

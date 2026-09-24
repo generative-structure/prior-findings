@@ -5,7 +5,7 @@ reported finding depends jointly on the condition existing and on the auditor
 detecting it
 \citep{keating2005,petrovits2011,waymire2018,gao2002,gao2024,waddell2023}.
 What is added is the decomposition of what follows a prior finding into
-recurrence, newly recorded findings and mixed cases.
+recurrence, findings not classified as repeats, and mixed cases.
 
 \subsection*{Data and sample}
 
@@ -19,6 +19,14 @@ years: \nNPrior{} with a prior-year finding and \nNNoPrior{} without.
 Intervals are cluster bootstrap over \nNAuditees{} auditees.
 Appendix~\ref{app:emp} gives the construction and the sample flow.
 
+Write $J_t = 1$ when the program is audited as a major program in year $t$.
+Every Sample~A quantity is conditional on $J_{t-1} = J_t = 1$: the comparisons
+are $P(F_t = 1 \mid F_{t-1} = f,\, J_{t-1} = J_t = 1)$ for $f = 0, 1$, and the
+empirical statements below apply to that selected population. Selection into
+it depends on the finding record (Section~\ref{sec:regime}), so the
+conditioning defines the population described; it does not make selection
+ignorable for any wider population.
+
 One construction decision follows from the paper's own argument. In
 \nSthreeN{} program-years, \nSthreePct{} percent of the panel, the auditee
 filed in the prior year but this program does not appear in that filing. They
@@ -27,13 +35,16 @@ a record is not a clean result: they go on to record a finding
 \nSthreePctFinding{} percent of the time, against \nStwoPctFinding{} percent
 after a resolved clean prior year. ``Repeat'' is the auditor's own coding; a
 validated historical link is the secondary definition
-(Appendix~\ref{app:emp}).
+(Appendix~\ref{app:emp}). A finding is \emph{new} when the auditor did not
+classify it as a repeat. ``New'' is shorthand for that classification: it does
+not establish that the condition was never recorded before or that it arose
+this year.
 
 \subsection*{What follows a prior finding}
 
 Even among programs audited as major in both consecutive years, prior recorded
 findings predict two distinct parts of the future finding record: explicit
-recurrence, and additional newly recorded findings. Table~\ref{tab:fourstate}
+recurrence, and additional findings not classified as repeats. Table~\ref{tab:fourstate}
 is the main result. For context, a program-year following a clean prior year
 records a finding \mPAnyNoPrior{} of the time and one following a prior-year
 finding records one \mPAnyPrior{} of the time, a difference of \mDAny{}
@@ -67,7 +78,7 @@ is easy to read past is the one about new findings. Programs whose \emph{only}
 outcome was a new finding account for $+\nDNonly{}$, a ratio of \nRRNonly{},
 which looks like almost nothing. But ``new only'' does not answer the
 question a reader is asking, which is whether the program recorded \emph{any}
-newly recorded problem. That quantity is
+new finding. That quantity is
 %
 \[
   \text{any new} \;=\; N + B ,
@@ -98,9 +109,11 @@ at all:
   \underbrace{+\nEnew{}}_{\text{new}} .
 \end{equation}
 %
-A program-year following a prior-year finding records about one more finding
-than one following a clean year, of which roughly seven tenths of a finding
-is a repeat and three tenths is new.
+The unrounded values satisfy the identity exactly; the four-decimal values
+shown differ in the last digit by rounding. A program-year following a
+prior-year finding records about one more finding than one following a clean
+year, of which about seven tenths of a finding is a repeat and three tenths is
+new.
 
 The record does not identify how much of these associations reflects true
 persistence of the underlying condition, stable differences between auditees,
@@ -111,17 +124,19 @@ identification problem; they do not identify its mechanism, and nothing here
 should be cited as showing that observation feedback is the dominant
 explanation.
 
-\subsection*{A recurrence share is a convention, not a measurement}
+\subsection*{A recurrence share depends on how mixed outcomes are allocated}
 
 The obvious way to compress Table~\ref{tab:fourstate} into one number is to
-ask what share of the prior-finding association is recurrence. That statistic
-is not uniquely defined when a program-period can contain both repeat and new
-findings, because every mixed period, \nMixedShare{} percent of all
-prior-finding outcomes, has to be assigned to one side. Assign none of them to
-recurrence and the share is \nZetaLo{} percent. Assign all of them and it is
-\nZetaHi{} percent. The summary moves \nZetaSwing{} percentage points, and
-nothing in the underlying observations changes (Figure~\ref{fig:zeta}). The
-general lesson: when outcome classes overlap, report mutually exclusive states
+ask what share of the prior-finding association is recurrence. Every mixed
+period, \nMixedShare{} percent of all prior-finding outcomes, has to be
+assigned to one side first. Assign none of them to recurrence and the share is
+\nZetaLo{} percent. Assign all of them and it is \nZetaHi{} percent. The
+summary moves \nZetaSwing{} percentage points, and nothing in the underlying
+observations changes (Figure~\ref{fig:zeta}). A two-category recurrence share
+is not uniquely defined until the treatment of mixed outcomes is specified,
+and it is not a causal attribution. For a fixed allocation fraction $\zeta$ it
+is a well-defined descriptive function of observable quantities. The general
+lesson: when outcome classes overlap, report mutually exclusive states
 or additive counts before reporting an attributable share, and if a share is
 reported anyway, state the convention and show the figure under the opposite
 one. The convention-free statement is equation~\eqref{eq:four}:
@@ -138,7 +153,7 @@ external to these data. A ``first finding in a previously clean area'' rate
 therefore has no defensible denominator, and without one the comparison goes
 wrong because the two history groups do not have the same opportunity to
 produce the outcome. Take two requirement areas, each with a 0.20 chance of a
-finding this year, independent of anything before. A program with neither
+finding this year, independent of each other and of anything before. A program with neither
 area previously flagged has a $1 - 0.80^2 = 0.36$ chance of a finding in an
 area new to it; a program with one area already flagged has only the other
 available, so its chance is $0.20$. Nothing underneath differs. In a

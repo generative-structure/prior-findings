@@ -7,9 +7,12 @@ every Single Audit submission as bulk files at
 \url{https://www.fac.gov/data/download/}, without registration,
 authentication or fee. Seven files were retrieved in September 2026 and cover
 fiscal years 2016 onward. No free-text finding narratives, no restricted data
-and no nonpublic records of any kind were used. The regulatory provisions
-quoted are from Title~2 of the Code of Federal Regulations; the 2023 annual
-edition is the one in force over the sample period.
+and no nonpublic records of any kind were used. Regulatory quotations are
+from the 2023 annual edition of Title~2 of the Code of Federal Regulations.
+The provisions the paper relies on, the audit threshold (200.501(a)), the
+tiered Type~A threshold (200.518(b)(1)), the Type~A low-risk criteria
+(200.518(c)) and the follow-up requirement (200.514(e)), applied with the same
+thresholds and criteria to every audit in the sample.
 
 The unit of analysis is the auditee--program--year. A ``program'' is the
 regulatory program unit: a cluster of programs where one exists, otherwise a
@@ -17,11 +20,29 @@ single assistance listing number. That follows 2~CFR 200.518(b)(3), under
 which ``a cluster of programs is treated as one program'' for the Type~A
 determination, so the unit matches the one the rules operate on. The window
 is fiscal years 2016 through 2023, restricted to audits whose fiscal year began
-within the period governed by the \$750,000 audit and Type~A thresholds in
-200.501(a) and 200.518(b)(1) as they stood before the 2024 revision, which
-raised both to \$1,000,000 for fiscal years beginning on or after 1~October
-2024 \citep{omb2024}. The panel ends before that revision takes effect, so a
+between 26~December 2014 and 30~September 2024. Over that period the audit
+threshold in 200.501(a) was \$750,000, and the Type~A threshold in
+200.518(b)(1) was tiered by the entity's total federal expenditures, with
+\$750,000 as its lowest tier, applying to entities expending up to \$25
+million. The 2024 revision raised the audit threshold and the lowest Type~A
+tier to \$1,000,000 for fiscal years beginning on or after 1~October 2024
+\citep{omb2024}. The panel ends before that revision takes effect, so a
 single threshold regime governs throughout.
+
+The panel is built from three bulk files. Audits (the general file) are
+limited to single audits; program-specific audits are excluded. Duplicate
+valid submissions, identified by the Clearinghouse's own rule (same auditee
+UEI, EIN, audit year, entity name and auditee e-mail), are collapsed to the
+most recently accepted record, with the report identifier breaking ties. The
+panel keeps EIN-years with exactly one accepted audit, so that EIN, program
+unit and audit year form a unique key; the build aborts if any key is
+duplicated. Award lines are joined to audits by report identifier and rolled
+up to the program unit, and a program unit is audited as major in a year when
+any of its award lines is marked major. Findings are joined to award lines by
+report identifier and award reference and rolled up to the program unit, each
+distinct finding reference counted once even when it is attached to several
+award lines. A program-year's prior year is the same EIN and program unit in
+audit year $t-1$.
 
 Table~\ref{tab:sample} shows how the panel narrows and why a missing prior
 year is not coded as a clean one. The panel distinguishes a resolved
@@ -29,8 +50,9 @@ prior-year observation with no finding from the absence of any prior-year
 record for that program: of the \nPanelRows{} program-years, \nSone{} have a
 resolved prior-year finding and \nStwo{} a resolved prior-year clean result;
 the remainder are excluded rather than recoded. Sample~A restricts further to
-program-years in which the program was audited as major in both years. It
-holds the major-program-selection channel fixed. It does not hold audit
+program-years in which the program was audited as major in both years, so
+every Sample~A quantity is conditional on $J_{t-1} = J_t = 1$. That
+conditioning does not make selection ignorable, and it does not hold audit
 intensity or condition-specific observation fixed, and cannot, for the reason
 given in Section~\ref{sec:regime}: the follow-up requirement applies within
 Sample~A.
@@ -40,7 +62,7 @@ coding. The secondary one is a validated historical link: a finding whose
 cited prior reference number appears as a finding reference recorded for the
 same auditee and program in the immediately preceding year. Of the
 \nLinkFlagged{} findings that cite a prior-finding reference, \nLinkResolved{}
-resolve this way, \nLinkPct{}~percent. Non-resolution has innocent causes: the
+resolve this way, \nLinkPctRev{}~percent. Non-resolution has innocent causes: the
 prior finding may sit two or more years back, may be recorded against a
 different program unit, or may carry a renumbered reference. Neither measure
 is a gold standard, so both are reported. Intervals throughout are 95 percent
@@ -86,9 +108,10 @@ repeat and a new finding. $\zeta$ is the fraction of mixed periods counted as
 recurrence. The $\zeta = 1$ row gives \nNineZeroNine{}~percent; the $\zeta = 0$
 row gives \nZetaLo{}~percent. The arithmetic is not in doubt: the numerator
 $\nDRonly{} + \zeta \cdot \nDBoth{}$ and the denominator \nDAny{} are read
-directly off Table~\ref{tab:fourstate}. A correctly computed statistic can
-still be uninformative, because the quantity it reports is fixed by the
-allocation rule rather than by anything observed.
+directly off Table~\ref{tab:fourstate}. For each fixed $\zeta$ the statistic
+is a well-defined descriptive function of observable quantities. The range
+across $\zeta$ shows that it is not uniquely defined until $\zeta$ is stated,
+and no value of $\zeta$ makes it a causal attribution.
 
 \subsection{Compliance-requirement categories}
 
@@ -115,17 +138,69 @@ it to be audited as a major program again, and that is exactly the quantity
 the regulation makes depend on the finding record: a prior finding can block
 low-risk Type~A status and so make recoverage more likely. The programs that
 can be followed are therefore not a random subset of the programs one would
-want to follow, and the selection runs in the direction that would flatter a
-persistence interpretation.
+want to follow. Without a model of recoverage, the direction of the resulting
+selection bias is not determined.
 
 The attrition is severe. Of \nHorizonNone{} Sample~A finding-years with
 resolved follow-up at $t+1$, \nHorizonNtwo{} can be followed to $t+2$ and
 \nHorizonNthree{} to $t+3$, losses of \nHorizonLossTwo{} and
 \nHorizonLossThree{}~percent. Across those shrinking and increasingly selected
 samples the explicit-repeat rate falls from \nHorizonRepeatOne{} at $t+1$ to
-\nHorizonRepeatThree{} at $t+3$. That decline is what both a decay story and a
-selection story predict, and the design cannot separate them, which is why the
-numbers are recorded here rather than interpreted.
+\nHorizonRepeatThree{} at $t+3$. That decline is consistent with decay of the
+condition, with selective recoverage, or with both, and the design cannot
+separate them, which is why the numbers are recorded here rather than
+interpreted.
+
+\subsection{Simulation specifications}
+
+Every simulation draws from a generator seeded by the master seed
+\nBootSeed{} and the experiment's name, so each experiment is reproducible on
+its own. The quantities reported are either exact calculations or Monte Carlo
+results from a single prespecified configuration; no parameter search was
+performed.
+
+\paragraph{Table~\ref{tab:worlds} and the remediation reversal.} Exact
+arithmetic from the stated $r_f$ and $d_f$; no simulation.
+
+\paragraph{Table~\ref{tab:multitype}.} $10^6$ programs, two periods, twelve
+condition types in four requirement areas of three types each. The
+per-type prevalences, by area, are $(0.08, 0.06, 0.04)$, $(0.07, 0.05, 0.03)$,
+$(0.06, 0.04, 0.02)$ and $(0.05, 0.03, 0.015)$. In period one each condition
+is present independently with its prevalence and recorded with probability
+0.20. The prior-finding group is the programs with at least one period-one
+finding (\nMultiNprior{} programs; \nMultiNnoPrior{} have none). Period-two
+conditions are drawn afresh, independently of period one, with the same
+prevalences. Period-two detection is 0.20 except as the regime specifies: 0.90
+for condition types recorded in period one (same finding); 0.70 for every type
+in a requirement area with a period-one finding (same area); 0.60 for every
+type in a program with any period-one finding (program overall). A period-two
+finding is a repeat if its type was recorded in period one, new in an old area
+if its type was not recorded but its area was, and new in a new area
+otherwise. Each outcome is the indicator that at least one finding of that
+kind is recorded; the gap is its rate in the prior-finding group minus its
+rate in the other group; each cell is the regime's gap minus the baseline
+gap. Period-one draws, history groups, period-two conditions and period-two
+detection uniforms are shared by all regimes, and a regime changes detection
+only for the types it targets, so outcomes outside the target set are
+identical program by program. The heterogeneity check in
+Appendix~\ref{app:id} multiplies every prevalence by $\theta/E[\theta]$, with
+$\theta \sim \mathrm{Beta}(2, 8)$ fixed for a program across both periods and
+prevalences capped at 0.80, and reruns the baseline, same-finding and
+program-overall regimes.
+
+\paragraph{Observation-only dynamics (Proposition~\ref{prop:markov}).}
+Reported values are exact stationary quantities. The accompanying simulation
+uses \nObsOnlyN{} entities over \nObsOnlyT{} periods, starts every entity at
+$F = 0$, and discards the first \nObsOnlyBurn{} periods.
+
+\paragraph{Prediction (Appendix~\ref{app:pred}).} The binary score uses $N =
+10^6$ with the closed form of Proposition~\ref{prop:aucbin} as the check. The
+continuous score, the calibration table and the fitted model use the
+configuration stated in Appendix~\ref{app:pred}. The fixed-average-detection
+grid is exact, with $k$ at \nBudgetPoints{} equally spaced points from 0 to
+the largest value keeping $d_0 \ge 0$ and $d_1 \le 1$. The finite-sample
+figure draws 500 portfolios at each size from 500 to 10,000 and 200 at
+50,000. The false-positive check uses $N = 10^6$.
 
 \subsection{Data and code availability}
 

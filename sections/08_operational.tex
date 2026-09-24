@@ -95,31 +95,53 @@ and applying the same nominal procedure does not by itself guarantee it.
 Sensitivity can differ between the groups if the conditions in one group are
 more severe or of different types, if records are harder to obtain, if the
 procedure is implemented differently, or if the case mix differs; then the
-reference ratio is $\Rlat$ times the ratio of sensitivities and the
-cancellation fails. Reference-sample size should be planned from the desired
+reference ratio $R_{\mathrm{ref}} = q^{\mathrm{ref}}_1/q^{\mathrm{ref}}_0$
+equals $\Rlat$ times $s_1/s_0$ and the cancellation fails. Exact equality is
+not needed for a usable result. If the organization can defend $\ell \le
+s_1/s_0 \le u$, then
+%
+\begin{equation}\label{eq:refrange}
+  \Rlat \;\in\; \bigl[\, R_{\mathrm{ref}}/u,\; R_{\mathrm{ref}}/\ell \,\bigr] ,
+\end{equation}
+%
+to be intersected with the record-based set~\eqref{eq:sharp}. A reference
+ratio of 2 with sensitivities defended to within ten percent of each other
+($\ell = 0.9$, $u = 1.1$) places $\Rlat$ between 1.82 and 2.22. Reference-sample size should be planned from the desired
 precision and the expected condition or finding rates in the two history
 groups.
 
 \subsection*{High-sensitivity reference procedures}
 
-A second anchor comes from procedures whose sensitivity for a narrowly defined
-condition is known or credibly near-perfect. Where such a procedure is applied
-to a whole subpopulation, its finding rate estimates that subpopulation's
-condition rate, so $r$ is observed rather than bounded, and the targeted
-procedure's finding rate in the same group then gives its detection
-probability, $d = q/r$; anchors in both history groups yield $d_0$, $d_1$ and
-$M$.
+A second anchor comes from a procedure whose sensitivity $s$ for a narrowly
+defined condition is known, or can be bounded from below. Applied to a whole
+subpopulation with no false positives, its finding rate $q^{\mathrm{ref}}$
+determines that subpopulation's condition rate in one of three grades:
+%
+\begin{itemize}
+\item perfect sensitivity, $s = 1$: $r = q^{\mathrm{ref}}$;
+\item known sensitivity, $0 < s < 1$: $r = q^{\mathrm{ref}}/s$;
+\item defended lower bound, $s \ge s_L$:
+  $r \in [\,q^{\mathrm{ref}},\; \min(1,\, q^{\mathrm{ref}}/s_L)\,]$.
+\end{itemize}
+%
+Near-perfect sensitivity is the third grade with $s_L$ close to one: at $s_L =
+0.95$, $r$ is at most about 5.3 percent above $q^{\mathrm{ref}}$. The targeted
+procedure's finding rate $q$ in the same group then gives its detection
+probability, $d = q/r$, exactly in the first two grades and within
+$[\,q/\min(1, q^{\mathrm{ref}}/s_L),\; q/q^{\mathrm{ref}}\,]$ in the third.
+Anchors in both history groups yield $d_0$, $d_1$ and $M$, or bounds on
+them (Proposition~\ref{prop:ref}).
 
 The anchor rests on the procedure's sensitivity, not on its coverage.
 Exhaustive coverage by itself does not make detection perfect. It removes
-sampling or coverage uncertainty, and it anchors the underlying rate only when
-the procedure applied to that population has known or credibly near-perfect
-sensitivity for the target condition. Where auditors speak of ``certainty
+sampling or coverage uncertainty, and it anchors the underlying rate only to
+the extent that the procedure's sensitivity for the target condition is known
+or bounded. Where auditors speak of ``certainty
 testing'', the certainty refers to inclusion in the tested population, not to
 certainty that every existing condition will be recognized. Testing every
-transaction for an exact duplicate payment may plausibly have very high
-sensitivity for that narrowly defined condition; testing every file for a
-judgment-dependent compliance failure may not, and the anchor is then only as
+transaction for an exact duplicate payment can have very high sensitivity
+for that narrowly defined condition; testing every file for a
+judgment-dependent compliance failure need not, and the anchor is then only as
 good as the sensitivity that can be defended.
 
 \subsection*{Independent reference adjudication}
@@ -165,7 +187,7 @@ procedures is not enough on its own: if both tend to miss the same difficult
 cases, for example where documentation does not exist, their agreement looks
 reassuring while saying little about what both missed. Vouching paired with
 an external confirmation can satisfy the first requirement; two reviewers
-re-performing the same sample with the same method generally cannot.
+re-performing the same sample with the same method do not.
 
 \subsection*{Randomized or quasi-random changes in audit attention}
 
@@ -178,7 +200,7 @@ about detection only if the change does not independently alter, or select
 on, the underlying condition; that is the exclusion restriction, and a
 staffing increase introduced because controls deteriorated fails it. And such
 variation identifies relative detection effects between the regimes it
-creates, or tightens bounds; absolute condition prevalence generally requires
+creates, or tightens bounds; absolute condition prevalence requires
 an additional sensitivity anchor of the kind described above.
 
 \subsection*{Procedure-based bounds}
